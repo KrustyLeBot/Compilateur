@@ -69,11 +69,11 @@ aetoile(Pf, _, _) :-
 aetoile(Pf,Pu,Q) :-
 	suppress_min(MinTerm, Pf, _),		%Suppression du terme dans Pf
 	MinTerm = [[F,H,G],S],
-	suppress([S,[F,H,G],Papa,Action], Pu, PuNew),	%Suppression du terme dans Pu
+	suppress([S,[F,H,G],Papa,Action], Pu, _),	%Suppression du terme dans Pu
 	fnal_state(Fin),
 	S = Fin, !,								%On verifie qu'on est bien à l'état final
 	insert([S,[F,H,G],Papa,Action],Q,QNew),
-	writeln("Solution trouvée : ")
+	writeln("Solution trouvée : "),
 	write_solution(S,QNew).
 
 
@@ -81,27 +81,48 @@ aetoile(Pf,Pu,Q) :-
 aetoile(Pf,Pu,Q) :-
 	suppress_min(MinTerm, Pf, PfNew),
 	MinTerm = [[F,H,G],S],
-	suppress([S,[F,H,G],Papa,Action], Pu, PuNew),
-	liste_successeur([S,[F,H,G],Papa,Action],Liste,Q),
+	Terme = [S,[F,H,G],_,_],
+	suppress(Terme, Pu, PuNew),
+	liste_successeur(Terme,Liste,Q),
 	loop_successeur(Liste,S,PfNew,PuNew,PfNewNew,PuNewNew),
-	insert([S,[F,H,G],Papa,Action],Q,Qnew),
+	insert(Terme,Q,QNew),
 	aetoile(PfNewNew,PuNewNew,QNew).
 
-write_solution.
 
-loop_successeur.
+afficher_taquin([]).
+afficher_taquin([X|Y]):-
+	writeln(X),
+	afficher_taquin(Y).
 
-liste_successeur.
+%affichage d'une solution finale ou d'une solution intermediaire
+write_solution(S,Q):-
+	suppress([S, F, Papa, Action], Q, QNew),
+	write_solution(Papa,QNew),
+	writeln('-------------------------------------'),
+	writeln(Action),
+	writeln('-------------------------------------'),
+	afficher_taquin(S),
+	writeln(F).
 
-successeur.
 
+liste_successeur(Pu_elem,Liste,Q):-
+	findall(Suc_elem,successeur(Pu_elem,Suc_elem,Q), Liste).
 
-
-
-
-
-
-
+successeur([S,[_,_,G],_,_], Suc_elem, Q):-
+	rule(Action, Cout, S, Suc),
+	not(belongs([Suc|_], Q)),
+	heuristique(Suc, H_suc),
+	G_suc is G+Cout,
+	F_suc is H_suc+G_suc,
+	Suc_elem = [Suc,[F_suc,H_suc,G_suc],S,Action].
 
 	
-   
+%cerveau macron (cas vide)
+loop_successeur([],_,Pf,Pu,PfNew,PuNew).
+	
+
+%Cas S dans P
+loop_successeur(Liste,S,Pf,Pu,PfNew,PuNew):-
+
+%Cas S pas dans P
+loop_successeur(Liste,S,Pf,Pu,PfNew,PuNew):-
