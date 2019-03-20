@@ -1,3 +1,16 @@
+%{
+#include "TSonga.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+struct element jean_louis[400];
+int pointeur;
+int portee;
+int last_addr;
+
+%}
+
+
 //declaration des tokens
 %token tMAIN;
 %token tINT;
@@ -62,40 +75,27 @@ void yyerror(char *msg) {
 
 
 int main() {
+	pointeur = -1;
+	portee = 0;
+	last_addr = 400;
+	
+
+	struct element lbd40 = {"abc", "char*", 400, 0};
+
+	pointeur = push(jean_louis, pointeur, lbd40);
+	printf("%d\n", pointeur);
+
+	printf("var:   %s\n", jean_louis[pointeur].nom);
+	
+	int pos = guete(jean_louis, "abc", pointeur);
+	printf("%d\n", pos);
+
+	pointeur = pop(jean_louis, pointeur);
+	printf("%d\n", pointeur);
+
 	yyparse();
-	struct element [256]; 
 	return 1;
 }
-
-
-
-typedef struct element {
-	char *nom;
-	char *type;
-	int portee;
-};
-
-
-
-
-
-/*
-
-void Push(struct Table ** t, char *nomparam , int valeurparam , int porteeparam){
-	struct Table *element = malloc(sizeof(struct Table));
-	if (!element) exit(1); //Si l'allocation a échoué
-	
-	(element -> nom) = malloc(sizeof(nomparam));
-	*(element -> nom) = *nomparam; 
-	element -> valeur = valeurparam;
-	element -> portee = porteeparam;
-	element -> prec = *t;
-	*t = element;	
-} 
-
-*/
-
-
 
 
 

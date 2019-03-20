@@ -62,8 +62,19 @@
 
 
 /* Copy the first part of user declarations.  */
+#line 1 "syntaxe.y" /* yacc.c:339  */
 
-#line 67 "y.tab.c" /* yacc.c:339  */
+#include "TSonga.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+struct element jean_louis[400];
+int pointeur;
+int portee;
+int last_addr;
+
+
+#line 78 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -152,7 +163,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 156 "y.tab.c" /* yacc.c:358  */
+#line 167 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -451,8 +462,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    29,    29,    31,    32,    33,    34,    38,    39,    40,
-      41,    44,    45,    46,    47,    48,    49,    50,    51,    52
+       0,    42,    42,    44,    45,    46,    47,    51,    52,    53,
+      54,    57,    58,    59,    60,    61,    62,    63,    64,    65
 };
 #endif
 
@@ -1245,25 +1256,25 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 31 "syntaxe.y" /* yacc.c:1646  */
+#line 44 "syntaxe.y" /* yacc.c:1646  */
     { printf("action1\n"); }
-#line 1251 "y.tab.c" /* yacc.c:1646  */
+#line 1262 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 32 "syntaxe.y" /* yacc.c:1646  */
+#line 45 "syntaxe.y" /* yacc.c:1646  */
     { printf("action2\n"); }
-#line 1257 "y.tab.c" /* yacc.c:1646  */
+#line 1268 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 33 "syntaxe.y" /* yacc.c:1646  */
+#line 46 "syntaxe.y" /* yacc.c:1646  */
     { printf("action3\n"); }
-#line 1263 "y.tab.c" /* yacc.c:1646  */
+#line 1274 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1267 "y.tab.c" /* yacc.c:1646  */
+#line 1278 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1491,7 +1502,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 55 "syntaxe.y" /* yacc.c:1906  */
+#line 68 "syntaxe.y" /* yacc.c:1906  */
 
 
 void yyerror(char *msg) {
@@ -1502,32 +1513,27 @@ void yyerror(char *msg) {
 
 
 int main() {
+	pointeur = -1;
+	portee = 0;
+	last_addr = 400;
+	
+
+	struct element lbd40 = {"abc", "char*", 400, 0};
+
+	pointeur = push(jean_louis, pointeur, lbd40);
+	printf("%d\n", pointeur);
+
+	printf("var:   %s\n", jean_louis[pointeur].nom);
+	
+	int pos = guete(jean_louis, "abc", pointeur);
+	printf("%d\n", pos);
+
+	pointeur = pop(jean_louis, pointeur);
+	printf("%d\n", pointeur);
+
 	yyparse();
 	return 1;
 }
-
-typedef struct Table {
-	char *nom;
-	int valeur;
-	int portee;
-	struct Table * prec;
-};
-
-void Push(struct Table ** t, char *nomparam , int valeurparam , int porteeparam){
-	struct Table *element = malloc(sizeof(struct Table));
-	if (!element) exit(1); //Si l'allocation a échoué
-	
-	(element -> nom) = malloc(sizeof(nomparam));
-	*(element -> nom) = *nomparam; 
-	element -> valeur = valeurparam;
-	element -> portee = porteeparam;
-	element -> prec = *t;
-	*t = element;	
-} 
-
-
-
-
 
 
 
