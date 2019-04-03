@@ -1,9 +1,10 @@
 %{
-	#include "y.tab.h"
+#include "y.tab.h"	
 %}
 
-
 %%
+
+
 [ \t\n]+	;
 
 "main" return tMAIN;
@@ -21,5 +22,6 @@
 ";" return tPVR;
 "const" return tCONST;
 "printf" return tPRINTF;
-[0-9]+ return tNB;
-[A-Za-z][A-Za-z0-9_]* return tID;
+"Balkany" printf("Je suis l'homme le plus honnete du monde\n");
+[0-9]+  {yylval.intValue = atoi(yytext); return tNB;}
+[A-Za-z][A-Za-z0-9_]* {yylval.stringValue = strdup(yytext); return tID;}

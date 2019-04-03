@@ -1,0 +1,22 @@
+Running: /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/bin/lin64/unwrapped/fuse -relaunch -intstyle "ise" -incremental -lib "secureip" -o "/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/td1_isim_beh.exe" -prj "/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/td1_beh.prj" "work.td1" 
+ISim O.87xd (signature 0x8ddf5b5d)
+Number of CPUs detected in this system: 4
+Turning on mult-threading, number of parallel sub-compilation jobs: 8 
+Determining compilation order of HDL files
+Parsing VHDL file "/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/td1.vhd" into library work
+Starting static elaboration
+Completed static elaboration
+Fuse Memory Usage: 95956 KB
+Fuse CPU Usage: 970 ms
+Compiling package standard
+Compiling package std_logic_1164
+Compiling package std_logic_arith
+Compiling package std_logic_unsigned
+Compiling architecture behavioral of entity td1
+Time Resolution for simulation is 1ps.
+Waiting for 1 sub-compilation(s) to finish...
+Compiled 5 VHDL Units
+Built simulation executable /home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/td1_isim_beh.exe
+Fuse Memory Usage: 668336 KB
+Fuse CPU Usage: 1050 ms
+GCC CPU Usage: 110 ms
