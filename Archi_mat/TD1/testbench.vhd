@@ -65,7 +65,7 @@ ARCHITECTURE behavior OF testbench IS
    -- No clocks detected in port list. Replace <clock> below with 
    -- appropriate port name 
  
-   constant <clock>_period : time := 10 ns;
+   constant CK_period : time := 10 ns;
  
 BEGIN
  
@@ -81,26 +81,19 @@ BEGIN
         );
 
    -- Clock process definitions
-   <clock>_process :process
+   CK_process :process
    begin
-		<clock> <= '0';
-		wait for <clock>_period/2;
-		<clock> <= '1';
-		wait for <clock>_period/2;
+		CK <= '0';
+		wait for CK_period/2;
+		CK <= '1';
+		wait for CK_period/2;
    end process;
  
 
-   -- Stimulus process
-   stim_proc: process
-   begin		
-      -- hold reset state for 100 ns.
-      wait for 100 ns;	
-
-      wait for <clock>_period*10;
-
-      -- insert stimulus here 
-
-      wait;
-   end process;
+   RST <= '0', '1' after 50 ns, '0' after 500 ns, '1' after 520 ns;
+	LOAD <= '0', '1' after 300 ns, '0' after 340 ns;
+	Din <= X"15";
+	EN <= '0', '1' after 420 ns, '0' after 440 ns;
+	SENS <= '1', '0' after 240 ms, '1' after 450 ns;
 
 END;

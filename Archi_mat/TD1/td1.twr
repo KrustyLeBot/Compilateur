@@ -3,7 +3,8 @@ Release 13.4 Trace  (lin64)
 Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
 
 /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/bin/lin64/unwrapped/trce -intstyle
-ise -v 3 -s 3 -n 3 -fastpaths -xml td1.twx td1.ncd -o td1.twr td1.pcf
+ise -v 3 -s 3 -n 3 -fastpaths -xml td1.twx td1.ncd -o td1.twr td1.pcf -ucf
+td1.ucf
 
 Design file:              td1.ncd
 Physical constraint file: td1.pcf
@@ -74,7 +75,7 @@ CK             |    1.824|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
-Analysis completed Tue Mar 26 16:39:51 2019 
+Analysis completed Tue Apr  9 09:12:43 2019 
 --------------------------------------------------------------------------------
 
 Trace Settings:

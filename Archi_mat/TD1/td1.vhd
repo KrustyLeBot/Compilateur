@@ -62,8 +62,8 @@ begin
 					cnt <= cnt + 1;
 				end if;
 			end if;
-			Dout<=cnt;
-	end process;
 
-end Behavioral;
+	end process;			
+	Dout<=cnt;
+	end Behavioral;
 

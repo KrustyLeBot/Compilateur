@@ -1,7 +1,7 @@
 Release 13.4 par O.87xd (lin64)
 Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
 
-insa-07565::  Tue Mar 26 16:39:40 2019
+insa-07565::  Tue Apr 09 09:12:32 2019
 
 par -w -intstyle ise -ol high -mt off td1_map.ncd td1.ncd td1.pcf 
 
@@ -166,7 +166,7 @@ Generating Pad Report.
 
 All signals are completely routed.
 
-Total REAL time to PAR completion: 4 secs 
+Total REAL time to PAR completion: 5 secs 
 Total CPU time to PAR completion: 4 secs 
 
 Peak Memory Usage:  619 MB

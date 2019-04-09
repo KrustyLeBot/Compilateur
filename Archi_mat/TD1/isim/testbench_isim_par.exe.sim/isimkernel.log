@@ -1,0 +1,32 @@
+Command line:
+   testbench_isim_par.exe
+     -simmode  gui
+     -sdfmax  /uut/=netgen/par/td1_timesim.sdf
+     -sdfroot  /uut
+     -simrunnum  0
+     -socket  58205
+
+Tue Apr  9 09:08:10 2019
+
+
+ Elaboration Time: 0.07 sec
+
+ Current Memory Usage: 207.901 Meg
+
+ Total Signals          : 1088
+ Total Nets             : 761
+ Total Signal Drivers   : 649
+ Total Blocks           : 252
+ Total Primitive Blocks : 144
+ Total Processes        : 647
+ Total Traceable Variables  : 1546
+ Total Scalar Nets and Variables : 10083
+In process testbench.vhd:97 
+ 
+
+ Total Simulation Time: 0.09 sec
+
+ Current Memory Usage: 283.48 Meg
+
+Tue Apr  9 09:08:16 2019
+
