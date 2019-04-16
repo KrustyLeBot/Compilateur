@@ -1,0 +1,49 @@
+
+****** PlanAhead v13.4 (64-bit)
+  **** Build 157570 by hdbuild on Fri Dec 16 12:49:33 MST 2011
+    ** Copyright 1986-1999, 2001-2011 Xilinx, Inc. All Rights Reserved.
+
+INFO: [Common-78] Attempting to get a license: PlanAhead
+INFO: [Common-82] Got a license: PlanAhead
+INFO: [Common-86] Your PlanAhead license expires in -1652 day(s)
+INFO: [Device-25] Loading parts and site information from /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/PlanAhead/parts/arch.xmlParsing RTL primitives file [/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/PlanAhead/parts/xilinx/rtl/prims/rtl_prims.xml]
+Finished parsing RTL primitives file [/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/PlanAhead/parts/xilinx/rtl/prims/rtl_prims.xml]
+start_gui
+starting gui ...
+source /home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt/pa.fromHdl.tcl
+# create_project -name cpt -dir "/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt/planAhead_run_1" -part xc6slx16csg324-3
+Parsing template File [/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/data/projnav/templates/verilog.xml].
+Finished parsing template File [/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/data/projnav/templates/verilog.xml].
+Parsing template File [/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/data/projnav/templates/vhdl.xml].
+Finished parsing template File [/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/data/projnav/templates/vhdl.xml].
+Parsing template File [/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/data/projnav/templates/ucf.xml].
+Finished parsing template File [/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/data/projnav/templates/ucf.xml].
+# set_param project.pinAheadLayout yes
+# set srcset [get_property srcset [current_run -impl]]
+# set_property target_constrs_file "td1.ucf" [current_fileset -constrset]
+Adding file '/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt/td1.ucf' to fileset 'constrs_1'
+# set hdlfile [add_files [list {../td1.vhd}]]
+# set_property file_type VHDL $hdlfile
+# set_property library work $hdlfile
+# set_property top td1 $srcset
+# add_files [list {td1.ucf}] -fileset [get_property constrset [current_run]]
+# open_rtl_design -part xc6slx16csg324-3
+INFO: [PlanAhead-58] Using Verific elaboration
+Parsing VHDL file "/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/PlanAhead/parts/xilinx/rtl/lib/synplify/synattr.vhd" into library synplify
+Parsing VHDL file "/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/PlanAhead/parts/xilinx/rtl/lib/synplify/synattr.vhd" into library synplify
+Parsing VHDL file "/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/td1.vhd" into library work
+Loading clock regions from /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/PlanAhead/parts/xilinx/spartan6/spartan6lx/xc6slx16/ClockRegion.xml
+Loading clock buffers from /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/PlanAhead/parts/xilinx/spartan6/spartan6lx/xc6slx16/ClockBuffers.xml
+Loading package pin functions from /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/PlanAhead/parts/xilinx/spartan6/PinFunctions.xml...
+Loading package from /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/PlanAhead/parts/xilinx/spartan6/spartan6lx/xc6slx16/csg324/Package.xml
+Loading io standards from /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/PlanAhead/./parts/xilinx/spartan6/IOStandards.xml
+Loading device configuration modes from /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/PlanAhead/parts/xilinx/spartan6/ConfigModes.xml
+Loading list of drcs for the architecture : /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/PlanAhead/./parts/xilinx/spartan6/drc.xml
+Parsing UCF File [/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt/td1.ucf]
+Finished Parsing UCF File [/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt/td1.ucf]
+INFO: [PlanAhead-566] Unisim Transformation Summary:
+No Unisim elements were transformed.open_rtl_design: Time (s): 9.900u 0.140s 7.660w. Memory (MB): 4582.234p 146.031g
+exit
+stop_gui
+INFO: [PlanAhead-261] Exiting PlanAhead...
+INFO: [Common-83] Releasing license: PlanAhead

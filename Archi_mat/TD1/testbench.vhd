@@ -27,6 +27,8 @@
 --------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
  
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -94,6 +96,6 @@ BEGIN
 	LOAD <= '0', '1' after 300 ns, '0' after 340 ns;
 	Din <= X"15";
 	EN <= '0', '1' after 420 ns, '0' after 440 ns;
-	SENS <= '1', '0' after 240 ms, '1' after 450 ns;
+	SENS <= '1', '0' after 240 ns, '1' after 450 ns;
 
 END;

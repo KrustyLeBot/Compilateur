@@ -1,0 +1,8 @@
+INTSTYLE=impact
+INFILE=/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt/impact.xsl
+OUTFILE=/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt/impact.xsl
+FAMILY=Single
+PART=Single
+WORKINGDIR=/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt
+LICENSE=iMPACT
+USER_INFO=iMPACT

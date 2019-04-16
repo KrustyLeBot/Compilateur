@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "secureip" -o "/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt/clk_bench_isim_beh.exe" -prj "/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt/clk_bench_beh.prj" "work.clk_bench" 

@@ -87,16 +87,6 @@ typedef enum type_op {
 }type_op;
 
 
-void yyerror(char *msg);
-
-struct element jean_louis[400];
-int pointeur;
-int portee;
-int addr;
-struct instr ASM[5000];
-int line;
-
-
 struct instr{
 	char * id;
 	int val1;
@@ -104,8 +94,25 @@ struct instr{
 	int val3;
 };
 
+void yyerror(char *msg);
+void add_line(char *id,int v1, int v2, int v3);
+void var_temp();
+void operation(type_op param);
+void pop_main();
+void print_lines();
+void toBIN();
 
-#line 109 "y.tab.c" /* yacc.c:339  */
+struct element jean_louis[400];
+int pointeur; //val dernier elem jean_louis
+int portee;
+int addr;
+struct instr ASM[5000];
+int line;
+
+
+
+
+#line 116 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -183,12 +190,12 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 44 "syntaxe.y" /* yacc.c:355  */
+#line 51 "syntaxe.y" /* yacc.c:355  */
 
 	int intValue;
 	char *stringValue;
 
-#line 192 "y.tab.c" /* yacc.c:355  */
+#line 199 "y.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -205,7 +212,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 209 "y.tab.c" /* yacc.c:358  */
+#line 216 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -504,9 +511,9 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    78,    78,    80,    80,    82,    83,    84,    86,    89,
-      89,    93,    95,    99,   105,   111,   117,   122,   123,   124,
-     125,   126,   127,   128
+       0,    85,    85,    87,    87,    89,    90,    91,    98,   101,
+     101,   110,   117,   121,   127,   133,   139,   144,   149,   150,
+     151,   152,   153,   159
 };
 #endif
 
@@ -549,7 +556,7 @@ static const yytype_int8 yypact[] =
        0,    -3,    10,     2,   -17,     5,   -17,   -17,     7,    -5,
       23,    20,    17,    44,     7,     6,    -5,     6,   -17,   -17,
       -5,   -17,   -17,     6,     6,   -17,    22,    28,     7,    32,
-     -17,   -17,    43,     6,     6,     6,     6,     6,   -17,    27,
+     -17,    -2,    43,     6,     6,     6,     6,     6,   -17,    27,
      -17,     7,   -17,    55,    -2,    -2,   -17,   -17,    -5,   -17,
      -17
 };
@@ -1305,98 +1312,151 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 3:
-#line 80 "syntaxe.y" /* yacc.c:1646  */
+        case 2:
+#line 85 "syntaxe.y" /* yacc.c:1646  */
+    {toBIN();}
+#line 1319 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 3:
+#line 87 "syntaxe.y" /* yacc.c:1646  */
     {portee++;}
-#line 1312 "y.tab.c" /* yacc.c:1646  */
+#line 1325 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 80 "syntaxe.y" /* yacc.c:1646  */
-    {portee --;}
-#line 1318 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 5:
-#line 82 "syntaxe.y" /* yacc.c:1646  */
-    { printf("action1\n"); }
-#line 1324 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 6:
-#line 83 "syntaxe.y" /* yacc.c:1646  */
-    { printf("action2\n"); }
-#line 1330 "y.tab.c" /* yacc.c:1646  */
+#line 87 "syntaxe.y" /* yacc.c:1646  */
+    {portee --; print_lines();}
+#line 1331 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 84 "syntaxe.y" /* yacc.c:1646  */
-    { printf("action3\n"); }
-#line 1336 "y.tab.c" /* yacc.c:1646  */
+#line 91 "syntaxe.y" /* yacc.c:1646  */
+    {
+													int i = guete(jean_louis,(yyvsp[-4].stringValue),pointeur);
+													add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+													add_line("STORE",jean_louis[i].addr,1,-1);
+												}
+#line 1341 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 89 "syntaxe.y" /* yacc.c:1646  */
-    {add_line("STORE",jean_louis[pointeur-1].addr,jean_louis[pointeur].addr);}
-#line 1342 "y.tab.c" /* yacc.c:1646  */
+#line 101 "syntaxe.y" /* yacc.c:1646  */
+    {	
+												add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+												add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
+												addr = pop_unique(jean_louis,pointeur);
+												pointeur--;														//Supprime la derniere var temp
+											}
+#line 1352 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 93 "syntaxe.y" /* yacc.c:1646  */
-    {add_line("STORE %d %d",jean_louis[pointeur-1].addr,jean_louis[pointeur].addr);}
-#line 1348 "y.tab.c" /* yacc.c:1646  */
+#line 110 "syntaxe.y" /* yacc.c:1646  */
+    {	
+												add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+												add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
+												addr = pop_unique(jean_louis,pointeur);
+												pointeur--;
+											}
+#line 1363 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 95 "syntaxe.y" /* yacc.c:1646  */
+#line 117 "syntaxe.y" /* yacc.c:1646  */
     {
 												addr = ajout((yyvsp[-1].stringValue),INT,jean_louis,addr,portee,pointeur);
 												pointeur++;
 											}
-#line 1357 "y.tab.c" /* yacc.c:1646  */
+#line 1372 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 99 "syntaxe.y" /* yacc.c:1646  */
+#line 121 "syntaxe.y" /* yacc.c:1646  */
     {
 												addr = ajout((yyvsp[-2].stringValue),INT,jean_louis,addr,portee,pointeur);
 												pointeur++;
 											}
-#line 1366 "y.tab.c" /* yacc.c:1646  */
+#line 1381 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 105 "syntaxe.y" /* yacc.c:1646  */
+#line 127 "syntaxe.y" /* yacc.c:1646  */
     {
 							addr = ajout((yyvsp[-1].stringValue),INT,jean_louis,addr,portee,pointeur);
 							pointeur++;										
 						}
-#line 1375 "y.tab.c" /* yacc.c:1646  */
+#line 1390 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 111 "syntaxe.y" /* yacc.c:1646  */
+#line 133 "syntaxe.y" /* yacc.c:1646  */
     {
-												var_temp();
-												int i = guete(jean_louis,(yyvsp[0].stringValue),pointeur);
-												add_line("LOAD",0,jean_louis[i].addr);
-												add_line("STORE",jean_louis[pointeur].addr,0);
-											}
-#line 1386 "y.tab.c" /* yacc.c:1646  */
+							var_temp();
+							int i = guete(jean_louis,(yyvsp[0].stringValue),pointeur);
+							add_line("LOAD",1,jean_louis[i].addr,-1);
+							add_line("STORE",jean_louis[pointeur].addr,1,-1);
+						}
+#line 1401 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 117 "syntaxe.y" /* yacc.c:1646  */
+#line 139 "syntaxe.y" /* yacc.c:1646  */
     {
-												var_temp();
-												add_line("AFC",0,(yyvsp[0].intValue));
-												add_line("STORE",jean_louis[pointeur].addr,0);
-											}
-#line 1396 "y.tab.c" /* yacc.c:1646  */
+							var_temp();
+							add_line("AFC",1,(yyvsp[0].intValue),-1);
+							add_line("STORE",jean_louis[pointeur].addr,1,-1);
+						}
+#line 1411 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 17:
+#line 144 "syntaxe.y" /* yacc.c:1646  */
+    {
+							int i = guete(jean_louis,(yyvsp[-2].stringValue),pointeur);
+							add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+							add_line("STORE",jean_louis[i].addr,1,-1);
+						}
+#line 1421 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 18:
+#line 149 "syntaxe.y" /* yacc.c:1646  */
+    {printf("debug 1\n");operation(ADD);}
+#line 1427 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 19:
+#line 150 "syntaxe.y" /* yacc.c:1646  */
+    {operation(SOU);}
+#line 1433 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 20:
+#line 151 "syntaxe.y" /* yacc.c:1646  */
+    {operation(MUL);}
+#line 1439 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 21:
+#line 152 "syntaxe.y" /* yacc.c:1646  */
+    {operation(DIV);}
+#line 1445 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 22:
+#line 153 "syntaxe.y" /* yacc.c:1646  */
+    {
+							add_line("AFC",1,0,-1);
+							add_line("LOAD",2,jean_louis[pointeur].addr,-1);
+							add_line("SOU",1,2,-1);
+							add_line("STORE",jean_louis[pointeur].addr,1,-1);
+						}
+#line 1456 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1400 "y.tab.c" /* yacc.c:1646  */
+#line 1460 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1624,7 +1684,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 131 "syntaxe.y" /* yacc.c:1906  */
+#line 162 "syntaxe.y" /* yacc.c:1906  */
 
 
 void yyerror(char *msg) {
@@ -1632,47 +1692,73 @@ void yyerror(char *msg) {
 	exit(2);
 }
 
+
+
+////////////////////////////////////////////////////////////////////////
+
+void print_lines(){
+	for(int i = 0; i < line; i++){
+		if(strcmp(ASM[i].id,"LOAD")==0){
+			printf("%s R%d @%d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
+		}
+
+		else if(strcmp(ASM[i].id,"STORE")==0){
+			printf("%s @%d R%d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
+		}
+		
+		else if(strcmp(ASM[i].id,"AFC")==0){
+			printf("%s R%d %d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
+		}
+		else {
+			printf("%s R%d R%d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
+		}
+	}	
+		
+}
 void add_line(char *id,int v1, int v2, int v3){
-	struct instr tmp = {id, v1, v2, v3};
+	int val3 = 0;
+	if(v3 != -1) val3 = v3;
+	struct instr tmp = {id, v1, v2, val3};
 	ASM[line] = tmp;
 	line ++;
 }
 
 
 void var_temp(){ 
-	addr = ajout(NULL,INT,jean_louis,addr,portee,pointeur);
-	
+	addr = ajout("temp",INT,jean_louis,addr,portee,pointeur);
+	pointeur++;
 }
 
 void operation(type_op param){
-	add_line("LOAD",jean_louis[pointeur-1].addr);
-	add_line("LOAD",jean_louis[pointeur].addr);	
+	add_line("LOAD",1,jean_louis[pointeur-1].addr,-1);
+	add_line("LOAD",2,jean_louis[pointeur].addr,-1);	
 	switch(param){
 		case (ADD):
-			add_line("ADD",);
+			add_line("ADD",1,2,-1);
 			break;
 		case(MUL):
-			add_line("MUL",);
+			add_line("MUL",1,2,-1);
 			break;
 		case(SOU):
-			add_line("SOU",);
+			add_line("SOU",1,2,-1);
 			break;
 		case(DIV):
-			add_line("DIV",);
+			add_line("DIV",1,2,-1);
 			break;
 		case(EQU):
-			add_line("MOV",);
+			add_line("MOV",1,2,-1);
 			break;
 	}
-	add_line("STORE",jean_louis[pointeur-1].addr);
+	add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
 	addr = pop_unique(jean_louis,pointeur);
+	pointeur--;
 }
 
 void pop_main(){
 	pointeur = pop(jean_louis, pointeur);
 	
 	int tmp = 0;
-	switch(jean_louis[pointeur].type){
+	switch(jean_louis[pointeur].typeparam){
 		case(INT):
 			tmp = 4;
 			break;
@@ -1683,6 +1769,89 @@ void pop_main(){
 	addr = jean_louis[pointeur].addr + tmp;
 }
 
+void toBIN(){
+	FILE* fichier = NULL;
+	remove("sortie.banane");
+	fichier = fopen("sortie.banane", "w");
+
+    if (fichier != NULL)
+    {
+		int8_t * tmp = malloc(sizeof(char));
+		for(int i = 0; i < line; i++){
+			if(strcmp(ASM[i].id, "STORE") == 0 || strcmp(ASM[i].id, "LOAD") == 0){
+				if(strcmp(ASM[i].id, "LOAD") == 0){
+				*tmp=7;
+				fwrite(tmp,sizeof(int8_t), 1, fichier);
+
+				*tmp = (int8_t) ASM[i].val1;
+				fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+				*tmp = (int8_t) ASM[i].val2;
+				fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+				*tmp = (int8_t) (ASM[i].val2>>8);
+				fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "STORE") == 0){
+					*tmp=8;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+
+					*tmp = (int8_t) ASM[i].val1;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+					*tmp = (int8_t) ASM[i].val2;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+					*tmp = (int8_t) (ASM[i].val1>>8);
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+			}
+			else{
+				if(strcmp(ASM[i].id, "ADD") == 0){
+					*tmp=1;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "MUL") == 0){
+					*tmp=2;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "SOU") == 0){
+					*tmp=3;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "DIV") == 0){
+					*tmp=4;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "AFC") == 0){
+					*tmp=6;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "MOV") == 0){
+					*tmp=5;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				*tmp = (int8_t) ASM[i].val1;
+				fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+				*tmp = (int8_t) ASM[i].val2;
+				fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+				*tmp = (int8_t) ASM[i].val3;
+				fwrite(tmp,sizeof(int8_t), 1, fichier);
+			}					
+		}
+		fclose(fichier);
+    }
+    else
+    {
+        // On affiche un message d'erreur si on veut
+        printf("Impossible d'ouvrir le fichier sortie.banane");
+    }
+}
+////////////////////////////////////////////////////////////////////////
+
+
 
 int main() {
 	pointeur = -1;
@@ -1690,11 +1859,9 @@ int main() {
 	addr = 400;
 	line = 0;
 	
-	add_line("wololozaezaezaaazzeaezaezaezaeazezaeaz");
-	printf("truc : %s\n",ASM[0]);
 
 	printf("     === Salam alekoum compilator ===     \n");
-	printf("       ***Auteurs : Joe et Jacky***\n");
+	printf("   ***Auteurs: Bravais J. et Wowk T.***\n");
 						
 
 	yyparse();

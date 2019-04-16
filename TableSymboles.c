@@ -18,9 +18,8 @@ int pop(struct element* tab, int pt_pas_pt){
 
 int pop_unique(struct element* tab, int pt_pas_pt){
 	int addr = tab[pt_pas_pt].addr;	
-	pt_pas_pt--;
 	return addr;
-	
+}
 
 
 int push(struct element* tab, int pt_pas_pt, struct element truc_a_rajouter){
@@ -44,7 +43,7 @@ int guete(struct element* tab, char* nom_var, int pt_pas_pt){
 
 //Ajout d'un element a la table des symboles
 int ajout(char *nom,type typeparam,struct element *tab,int addr,int portee,int pointeur){
-	printf("%s\n",nom);
+	printf("CREA VAR %s\n",nom);
 	struct element elem = {nom,typeparam,addr,portee};
 	//Ajout a la table des symboles
 	push(tab, pointeur, elem);

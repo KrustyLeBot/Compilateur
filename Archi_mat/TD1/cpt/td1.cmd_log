@@ -1,0 +1,7 @@
+xst -intstyle ise -ifn "/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt/td1.xst" -ofn "/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt/td1.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc td1.ucf -p xc6slx16-csg324-3 td1.ngc td1.ngd  
+map -intstyle ise -p xc6slx16-csg324-3 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o td1_map.ncd td1.ngd td1.pcf 
+par -w -intstyle ise -ol high -mt off td1_map.ncd td1.ncd td1.pcf 
+trce -intstyle ise -v 3 -s 3 -n 3 -fastpaths -xml td1.twx td1.ncd -o td1.twr td1.pcf -ucf td1.ucf 
+bitgen -intstyle ise -f td1.ut td1.ncd 
+bitgen -intstyle ise -f td1.ut td1.ncd 

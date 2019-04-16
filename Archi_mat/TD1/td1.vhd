@@ -65,5 +65,5 @@ begin
 
 	end process;			
 	Dout<=cnt;
-	end Behavioral;
-
+	
+end Behavioral;

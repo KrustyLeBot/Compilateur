@@ -22,22 +22,29 @@ typedef enum type_op {
 }type_op;
 
 
-void yyerror(char *msg);
-
-struct element jean_louis[400];
-int pointeur;
-int portee;
-int addr;
-struct instr ASM[5000];
-int line;
-
-
 struct instr{
 	char * id;
 	int val1;
 	int val2;
 	int val3;
 };
+
+void yyerror(char *msg);
+void add_line(char *id,int v1, int v2, int v3);
+void var_temp();
+void operation(type_op param);
+void pop_main();
+void print_lines();
+void toBIN();
+
+struct element jean_louis[400];
+int pointeur; //val dernier elem jean_louis
+int portee;
+int addr;
+struct instr ASM[5000];
+int line;
+
+
 
 %}
 
@@ -75,22 +82,37 @@ struct instr{
 %left tPARR
 
 %%
-start : tMAIN tPARL tPARR corps;	//Axiome de départ
+start : tMAIN tPARL tPARR corps {toBIN();};	//Axiome de départ
 
-corps : tBRL {portee++;} instructions tBRR {portee --;};
+corps : tBRL {portee++;} instructions tBRR {portee --; print_lines();};
 
-instructions : tINT declint instructions		{ printf("action1\n"); }		//Declaration int
-	 		| tCONST tINT declint instructions { printf("action2\n"); }		//Declaration const int
-	 		| tID tEQU expr tPVR instructions  { printf("action3\n"); }		//Declaration expr artithmétique
+instructions : tINT declint instructions		//Declaration int
+	 		| tCONST tINT declint instructions 	//Declaration const int
+	 		| tID tEQU expr tPVR instructions  	{
+													int i = guete(jean_louis,$1,pointeur);
+													add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+													add_line("STORE",jean_louis[i].addr,1,-1);
+												}
+//Declaration expr artithmétique
 			//| tIF tPARL expr tPARR corps
 			| 
 ;
 
-declint : idequ	expr		{add_line("STORE",jean_louis[pointeur-1].addr,jean_louis[pointeur].addr);}
+declint : idequ	expr						{	
+												add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+												add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
+												addr = pop_unique(jean_louis,pointeur);
+												pointeur--;														//Supprime la derniere var temp
+											}
 				
 		  tVIR declint
 		
-		| idequ expr tPVR 				{add_line("STORE %d %d",jean_louis[pointeur-1].addr,jean_louis[pointeur].addr);}
+		| idequ expr tPVR 					{	
+												add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+												add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
+												addr = pop_unique(jean_louis,pointeur);
+												pointeur--;
+											}
 
 		| tID tPVR 							{
 												addr = ajout($1,INT,jean_louis,addr,portee,pointeur);
@@ -108,24 +130,33 @@ idequ : tID tEQU		{
 						}
 ;
 
-expr : tID									{
-												var_temp();
-												int i = guete(jean_louis,$1,pointeur);
-												add_line("LOAD",0,jean_louis[i].addr);
-												add_line("STORE",jean_louis[pointeur].addr,0);
-											}
-	 | tNB									{
-												var_temp();
-												add_line("AFC",0,$1);
-												add_line("STORE",jean_louis[pointeur].addr,0);
-											}
-	 | tID tEQU expr 
-	 | expr tPLUS expr						
-	 | expr tMOINS expr		
-	 | expr tSTAR expr		
-	 | expr tSLASH expr		
-	 | tMOINS expr	%prec tSTAR
-	 | tPARL expr tPARR
+expr : tID				{
+							var_temp();
+							int i = guete(jean_louis,$1,pointeur);
+							add_line("LOAD",1,jean_louis[i].addr,-1);
+							add_line("STORE",jean_louis[pointeur].addr,1,-1);
+						}
+	 | tNB				{
+							var_temp();
+							add_line("AFC",1,$1,-1);
+							add_line("STORE",jean_louis[pointeur].addr,1,-1);
+						}
+	 | tID tEQU expr 	{
+							int i = guete(jean_louis,$1,pointeur);
+							add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+							add_line("STORE",jean_louis[i].addr,1,-1);
+						}
+	 | expr tPLUS expr	{printf("debug 1\n");operation(ADD);}				
+	 | expr tMOINS expr	{operation(SOU);}		
+	 | expr tSTAR expr	{operation(MUL);}	
+	 | expr tSLASH expr	{operation(DIV);}		
+	 | tMOINS expr      {
+							add_line("AFC",1,0,-1);
+							add_line("LOAD",2,jean_louis[pointeur].addr,-1);
+							add_line("SOU",1,2,-1);
+							add_line("STORE",jean_louis[pointeur].addr,1,-1);
+						}	
+	 | tPARL expr tPARR	
 ;
 	 
 %%
@@ -135,47 +166,73 @@ void yyerror(char *msg) {
 	exit(2);
 }
 
+
+
+////////////////////////////////////////////////////////////////////////
+
+void print_lines(){
+	for(int i = 0; i < line; i++){
+		if(strcmp(ASM[i].id,"LOAD")==0){
+			printf("%s R%d @%d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
+		}
+
+		else if(strcmp(ASM[i].id,"STORE")==0){
+			printf("%s @%d R%d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
+		}
+		
+		else if(strcmp(ASM[i].id,"AFC")==0){
+			printf("%s R%d %d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
+		}
+		else {
+			printf("%s R%d R%d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
+		}
+	}	
+		
+}
 void add_line(char *id,int v1, int v2, int v3){
-	struct instr tmp = {id, v1, v2, v3};
+	int val3 = 0;
+	if(v3 != -1) val3 = v3;
+	struct instr tmp = {id, v1, v2, val3};
 	ASM[line] = tmp;
 	line ++;
 }
 
 
 void var_temp(){ 
-	addr = ajout(NULL,INT,jean_louis,addr,portee,pointeur);
-	
+	addr = ajout("temp",INT,jean_louis,addr,portee,pointeur);
+	pointeur++;
 }
 
 void operation(type_op param){
-	add_line("LOAD",jean_louis[pointeur-1].addr);
-	add_line("LOAD",jean_louis[pointeur].addr);	
+	add_line("LOAD",1,jean_louis[pointeur-1].addr,-1);
+	add_line("LOAD",2,jean_louis[pointeur].addr,-1);	
 	switch(param){
 		case (ADD):
-			add_line("ADD",);
+			add_line("ADD",1,2,-1);
 			break;
 		case(MUL):
-			add_line("MUL",);
+			add_line("MUL",1,2,-1);
 			break;
 		case(SOU):
-			add_line("SOU",);
+			add_line("SOU",1,2,-1);
 			break;
 		case(DIV):
-			add_line("DIV",);
+			add_line("DIV",1,2,-1);
 			break;
 		case(EQU):
-			add_line("MOV",);
+			add_line("MOV",1,2,-1);
 			break;
 	}
-	add_line("STORE",jean_louis[pointeur-1].addr);
+	add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
 	addr = pop_unique(jean_louis,pointeur);
+	pointeur--;
 }
 
 void pop_main(){
 	pointeur = pop(jean_louis, pointeur);
 	
 	int tmp = 0;
-	switch(jean_louis[pointeur].type){
+	switch(jean_louis[pointeur].typeparam){
 		case(INT):
 			tmp = 4;
 			break;
@@ -186,6 +243,89 @@ void pop_main(){
 	addr = jean_louis[pointeur].addr + tmp;
 }
 
+void toBIN(){
+	FILE* fichier = NULL;
+	remove("sortie.banane");
+	fichier = fopen("sortie.banane", "w");
+
+    if (fichier != NULL)
+    {
+		int8_t * tmp = malloc(sizeof(char));
+		for(int i = 0; i < line; i++){
+			if(strcmp(ASM[i].id, "STORE") == 0 || strcmp(ASM[i].id, "LOAD") == 0){
+				if(strcmp(ASM[i].id, "LOAD") == 0){
+				*tmp=7;
+				fwrite(tmp,sizeof(int8_t), 1, fichier);
+
+				*tmp = (int8_t) ASM[i].val1;
+				fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+				*tmp = (int8_t) ASM[i].val2;
+				fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+				*tmp = (int8_t) (ASM[i].val2>>8);
+				fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "STORE") == 0){
+					*tmp=8;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+
+					*tmp = (int8_t) ASM[i].val1;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+					*tmp = (int8_t) ASM[i].val2;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+					*tmp = (int8_t) (ASM[i].val1>>8);
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+			}
+			else{
+				if(strcmp(ASM[i].id, "ADD") == 0){
+					*tmp=1;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "MUL") == 0){
+					*tmp=2;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "SOU") == 0){
+					*tmp=3;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "DIV") == 0){
+					*tmp=4;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "AFC") == 0){
+					*tmp=6;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "MOV") == 0){
+					*tmp=5;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				*tmp = (int8_t) ASM[i].val1;
+				fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+				*tmp = (int8_t) ASM[i].val2;
+				fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+				*tmp = (int8_t) ASM[i].val3;
+				fwrite(tmp,sizeof(int8_t), 1, fichier);
+			}					
+		}
+		fclose(fichier);
+    }
+    else
+    {
+        // On affiche un message d'erreur si on veut
+        printf("Impossible d'ouvrir le fichier sortie.banane");
+    }
+}
+////////////////////////////////////////////////////////////////////////
+
+
 
 int main() {
 	pointeur = -1;
@@ -193,11 +333,9 @@ int main() {
 	addr = 400;
 	line = 0;
 	
-	add_line("wololozaezaezaaazzeaezaezaezaeazezaeaz");
-	printf("truc : %s\n",ASM[0]);
 
 	printf("     === Salam alekoum compilator ===     \n");
-	printf("       ***Auteurs : Le Djo et Jacky***\n");
+	printf("   ***Auteurs: Bravais J. et Wowk T.***\n");
 						
 
 	yyparse();

@@ -88,7 +88,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 44 "syntaxe.y" /* yacc.c:1909  */
+#line 51 "syntaxe.y" /* yacc.c:1909  */
 
 	int intValue;
 	char *stringValue;

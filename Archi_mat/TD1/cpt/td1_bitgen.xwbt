@@ -1,0 +1,8 @@
+INTSTYLE=ise
+INFILE=/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt/td1.ncd
+OUTFILE=/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt/td1.bit
+FAMILY=Spartan6
+PART=xc6slx16-3csg324
+WORKINGDIR=/home/wowk/Documents/TP_automates_langages/El_Compilator/Archi_mat/TD1/cpt
+LICENSE=ISE
+USER_INFO=202067218_1777487267_210567960_160
