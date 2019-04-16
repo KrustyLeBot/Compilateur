@@ -3,7 +3,7 @@ tab_memory = []
 for i in range(1000):
 	tab_memory.append(0)
 
-f = open("sortie2.banane","rb")
+f = open("sortie.banane","rb")
  
 line = f.read(1)
 while (len(line)>0):
@@ -15,14 +15,14 @@ while (len(line)>0):
 		f.read(1)  #Enleve padding
 		register[R1] = register[R1] + register[R2]
 
-	if (ord(line) == 2): #SOU
+	if (ord(line) == 3): #SOU
 		print("SOU")
 		R1 = ord(f.read(1))
 		R2 = ord(f.read(1))
 		f.read(1)  #Enleve padding
 		register[R1] = register[R1] - register[R2]
 
-	if (ord(line) == 3): #MUL
+	if (ord(line) == 2): #MUL
 		print("MUL")
 		R1 = ord(f.read(1))
 		R2 = ord(f.read(1))
@@ -66,12 +66,14 @@ while (len(line)>0):
 		R2 = ord(f.read(1))
 		f.read(1)  #Enleve padding
 		register[R1] = register[R2]
-
+	
+	print("a = " + str(tab_memory[400]))
+	print("b = " + str(tab_memory[404]))
 	line = f.read(1)
 
 print("ok")
-print("a = " + str(tab_memory[404]))
-print("b = " + str(tab_memory[408]))
+print("a = " + str(tab_memory[400]))
+print("b = " + str(tab_memory[404]))
 
 
 
