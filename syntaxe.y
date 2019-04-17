@@ -68,6 +68,10 @@ int line;
 %token tBRR;
 %token tVIR;
 %token tPVR;
+%token tIF;
+%token tELSE;
+%token tTRUE;
+%token tFALSE;
 %token tCONST;
 %token tPRINTF;
 %token <intValue> tNB;
@@ -94,7 +98,7 @@ instructions : tINT declint instructions		//Declaration int
 													add_line("STORE",jean_louis[i].addr,1,-1);
 												}
 //Declaration expr artithmétique
-			//| tIF tPARL expr tPARR corps
+			| if
 			| 
 ;
 
@@ -158,7 +162,14 @@ expr : tID				{
 						}	
 	 | tPARL expr tPARR	
 ;
-	 
+
+if : tIF tPARL expr tPARR corps else
+;
+
+else : tELSE corps
+	 | tELSE if
+	 | 
+;
 %%
 
 void yyerror(char *msg) {

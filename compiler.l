@@ -20,6 +20,10 @@
 "}" return tBRR;
 "," return tVIR;
 ";" return tPVR;
+"if" return tIF;
+"else" return tELSE;
+"True" return tTRUE;
+"False" return tFALSE;
 "const" return tCONST;
 "printf" return tPRINTF;
 "Balkany" printf("Je suis l'homme le plus honnete du monde\n");
