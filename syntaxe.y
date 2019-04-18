@@ -98,7 +98,7 @@ instructions : tINT declint instructions		//Declaration int
 													add_line("STORE",jean_louis[i].addr,1,-1);
 												}
 //Declaration expr artithmétique
-			| if
+			| if instructions
 			| 
 ;
 
