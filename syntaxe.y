@@ -91,85 +91,106 @@ start : tMAIN tPARL tPARR corps {toBIN();};	//Axiome de départ
 corps : tBRL {portee++;} instructions tBRR {portee --; print_lines();};
 
 instructions : tINT declint instructions		//Declaration int
-	 		| tCONST tINT declint instructions 	//Declaration const int
-	 		| tID tEQU expr tPVR instructions  	{
+			| tCONST tINT declint instructions 	//Declaration const int
+	 		| tID tEQU expr tPVR			{
+																	int i = guete(jean_louis,$1,pointeur);
+																	add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+																	add_line("STORE",jean_louis[i].addr,1,-1);
+																}
+			instructions
+//Declaration expr artithmétique
+			| tIF if instructions
+			| 
+;
+
+declint : idequ	expr			{	
+														add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+														add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
+														addr = pop_unique(jean_louis,pointeur);
+														pointeur--;
+													}
+				
+			tVIR declint
+		
+		|	idequ expr tPVR			{	
+														add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+														add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
+														addr = pop_unique(jean_louis,pointeur);
+														pointeur--;
+													}
+
+		| tID tPVR			{
+											addr = ajout($1,INT,jean_louis,addr,portee,pointeur);
+											pointeur++;
+										}
+		| tID tVIR declint			{
+															addr = ajout($1,INT,jean_louis,addr,portee,pointeur);
+															pointeur++;
+														}
+;
+
+idequ : tID tEQU			{
+												addr = ajout($1,INT,jean_louis,addr,portee,pointeur);
+												pointeur++;										
+											}
+;
+
+expr : tID			{
+									var_temp();
+									int i = guete(jean_louis,$1,pointeur);
+									add_line("LOAD",1,jean_louis[i].addr,-1);
+									add_line("STORE",jean_louis[pointeur].addr,1,-1);
+								}
+	 | tNB			{
+								var_temp();
+								add_line("AFC",1,$1,-1);
+								add_line("STORE",jean_louis[pointeur].addr,1,-1);
+							}
+	 | tID tEQU expr			{
 													int i = guete(jean_louis,$1,pointeur);
 													add_line("LOAD",1,jean_louis[pointeur].addr,-1);
 													add_line("STORE",jean_louis[i].addr,1,-1);
 												}
-//Declaration expr artithmétique
-			| if instructions
-			| 
-;
-
-declint : idequ	expr						{	
-												add_line("LOAD",1,jean_louis[pointeur].addr,-1);
-												add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
-												addr = pop_unique(jean_louis,pointeur);
-												pointeur--;														//Supprime la derniere var temp
-											}
-				
-		  tVIR declint
-		
-		| idequ expr tPVR 					{	
-												add_line("LOAD",1,jean_louis[pointeur].addr,-1);
-												add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
-												addr = pop_unique(jean_louis,pointeur);
-												pointeur--;
-											}
-
-		| tID tPVR 							{
-												addr = ajout($1,INT,jean_louis,addr,portee,pointeur);
-												pointeur++;
-											}
-		| tID tVIR declint					{
-												addr = ajout($1,INT,jean_louis,addr,portee,pointeur);
-												pointeur++;
-											}
-;
-
-idequ : tID tEQU		{
-							addr = ajout($1,INT,jean_louis,addr,portee,pointeur);
-							pointeur++;										
-						}
-;
-
-expr : tID				{
-							var_temp();
-							int i = guete(jean_louis,$1,pointeur);
-							add_line("LOAD",1,jean_louis[i].addr,-1);
-							add_line("STORE",jean_louis[pointeur].addr,1,-1);
-						}
-	 | tNB				{
-							var_temp();
-							add_line("AFC",1,$1,-1);
-							add_line("STORE",jean_louis[pointeur].addr,1,-1);
-						}
-	 | tID tEQU expr 	{
-							int i = guete(jean_louis,$1,pointeur);
-							add_line("LOAD",1,jean_louis[pointeur].addr,-1);
-							add_line("STORE",jean_louis[i].addr,1,-1);
-						}
 	 | expr tPLUS expr	{printf("debug 1\n");operation(ADD);}				
 	 | expr tMOINS expr	{operation(SOU);}		
 	 | expr tSTAR expr	{operation(MUL);}	
-	 | expr tSLASH expr	{operation(DIV);}		
-	 | tMOINS expr      {
-							add_line("AFC",1,0,-1);
-							add_line("LOAD",2,jean_louis[pointeur].addr,-1);
-							add_line("SOU",1,2,-1);
-							add_line("STORE",jean_louis[pointeur].addr,1,-1);
-						}	
+	 | expr tSLASH expr {operation(DIV);}		
+	 | tMOINS expr			{
+												add_line("AFC",1,0,-1);
+												add_line("LOAD",2,jean_louis[pointeur].addr,-1);
+												add_line("SOU",1,2,-1);
+												add_line("STORE",jean_louis[pointeur].addr,1,-1);
+											}	
 	 | tPARL expr tPARR	
 ;
 
-if : tIF tPARL expr tPARR corps else
+if : tPARL expr tPARR			{
+														add_line("LOAD",0,jean_louis[pointeur].addr,-1);
+														//on fait un jump conditionel vers le else
+														add_line("JCVD",-1,0,-1);
+													}
+			patch_line corps {add_line("JMP",-1,-1,-1);}
+			patch_line maybe_else			{
+																	if($7){
+																	//si else on patch le JMP vers la fin du else et le JCVD vers le patch_line avant le else
+																	patch_line($6,"JMP",line,-1,-1);
+																	patch_line($4,"JCVD",$6,0,-1);
+																	}
+																	else{
+																		//sinon on del le JMP a la fin du else et on patch le JCVD vers le dernier patch_line
+																		rm_line_last();
+																		patch_line($4,"JCVD",line,0,-1);
+																	}
+																}
 ;
 
-else : tELSE corps
-	 | tELSE if
-	 | 
+maybe_else : tELSE corps {$$ = 1;}
+	 | {$$ = 0;}
 ;
+
+patch_line : {$$ = line-1;}
+;
+
 %%
 
 void yyerror(char *msg) {
@@ -208,6 +229,17 @@ void add_line(char *id,int v1, int v2, int v3){
 	line ++;
 }
 
+void patch_line(int l,int v1,int v2,int v3){
+	int val3 = 0;
+	if(v3 != -1) val3 = v3;
+	struct instr tmp = {id, v1, v2, val3};
+	ASM[l] = tmp;
+}
+
+void rm_line_last(){
+	ASM[line] = ASM[line+1];
+	line--;
+}
 
 void var_temp(){ 
 	addr = ajout("temp",INT,jean_louis,addr,portee,pointeur);
