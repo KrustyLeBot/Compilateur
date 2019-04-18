@@ -85,6 +85,9 @@ int line;
 %right tPARL
 %left tPARR
 
+%type <integer> patch_line;
+%type <integer> maybe_else;
+
 %%
 start : tMAIN tPARL tPARR corps {toBIN();};	//Axiome de départ
 
