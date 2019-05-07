@@ -92,9 +92,9 @@ int line;
 %type <intValue> maybe_else;
 
 %%
-start : tMAIN tPARL tPARR corps {toBIN();};	//Axiome de départ
+start : tMAIN tPARL tPARR corps {toBIN();printf("line: %d\n",line);};	//Axiome de départ
 
-corps : tBRL {portee++;} instructions tBRR {portee --; pop_main();printf("line: %d\n",line); print_lines();};
+corps : tBRL {portee++;} instructions tBRR {portee --; pop_main(); print_lines();};
 
 instructions : tINT declint instructions		//Declaration int
 			| tCONST tINT declint instructions 	//Declaration const int
