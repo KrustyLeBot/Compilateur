@@ -13,7 +13,7 @@
 "-" return tMOINS;
 "*" return tSTAR;
 "/" return tSLASH;
-"==" return tDEQU
+"==" return tDEQU;
 "=" return tEQU;
 "(" return tPARL;
 ")" return tPARR;
