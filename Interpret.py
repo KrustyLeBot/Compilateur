@@ -4,77 +4,199 @@ for i in range(1000):
 	tab_memory.append(0)
 
 f = open("sortie.banane","rb")
- 
+
+liste_instr = []
+
 line = f.read(1)
 while (len(line)>0):
 	print(line)
+	liste_tmp = []
+
 	if (ord(line) == 1): #ADD
-		print("ADD")
-		R1 = ord(f.read(1))
-		R2 = ord(f.read(1))
-		f.read(1)  #Enleve padding
-		register[R1] = register[R1] + register[R2]
+		liste_tmp.append("ADD")
+
 
 	if (ord(line) == 3): #SOU
-		print("SOU")
-		R1 = ord(f.read(1))
-		R2 = ord(f.read(1))
-		f.read(1)  #Enleve padding
-		register[R1] = register[R1] - register[R2]
+		liste_tmp.append("SOU")
+
 
 	if (ord(line) == 2): #MUL
-		print("MUL")
-		R1 = ord(f.read(1))
-		R2 = ord(f.read(1))
-		f.read(1)  #Enleve padding
-		register[R1] = register[R1] * register[R2]
+		liste_tmp.append("MUL")
 
 	if (ord(line) == 4): #DIV
-		print("DIV")
-		R1 = ord(f.read(1))
-		R2 = ord(f.read(1))
-		f.read(1)  #Enleve padding
-		if (register[2] == 0):print("division par 0")
-		register[R1] = register[R1] / register[R2]
+		liste_tmp.append("DIV")
 
 	if (ord(line) == 6): #AFC
-		print("AFC")
-		R1 = ord(f.read(1))
-		j = ord(f.read(1))
-		f.read(1)  #Enleve padding
-		register[R1] = j
+		liste_tmp.append("AFC")
 
 	if (ord(line) == 7): #LOAD
-		print("LOAD")
-		R1 = ord(f.read(1))
-		addr2 = ord(f.read(1))
-		addr1 = ord(f.read(1)) <<8
-		addr = addr1 + addr2
-		register[R1] = tab_memory[addr]
+		liste_tmp.append("LOAD")
 
 	if (ord(line) == 8): #STORE
+		liste_tmp.append("STORE")
+
+	if(ord(line) == 5): #MOV COP
+		liste_tmp.append("MOV")
+
+	if(ord(line) == 9): #EQU
+		liste_tmp.append("EQU")
+
+	if(ord(line) == 10): #INF
+		liste_tmp.append("INF")
+
+	if(ord(line) == 11): #INFE
+		liste_tmp.append("INFE")
+
+	if(ord(line) == 12): #SUP
+		liste_tmp.append("SUP")
+
+	if(ord(line) == 13): #SUPE
+		liste_tmp.append("SUPE")
+
+	if(ord(line) == 14): #JMP
+		liste_tmp.append("JMP")
+	if(ord(line) == 15): #JMPC
+		liste_tmp.append("JMPC")
+
+	A = ord(f.read(1))
+	B = ord(f.read(1))
+	C = ord(f.read(1))
+	liste_tmp.append(A)
+	liste_tmp.append(B)
+	liste_tmp.append(C)
+
+	liste_instr.append(liste_tmp)
+
+	line = f.read(1)
+
+
+f.close()
+
+print(liste_instr)
+
+
+pointeur = 0
+
+
+while (pointeur < len(liste_instr)):
+	if (liste_instr[pointeur][0] == "ADD"): #ADD
+		print("ADD")
+		R1 = liste_instr[pointeur][1]
+		R2 = liste_instr[pointeur][2]
+		register[R1] = register[R1] + register[R2]
+
+	if (liste_instr[pointeur][0] == "SOU"): #SOU
+		print("SOU")
+		R1 = liste_instr[pointeur][1]
+		R2 = liste_instr[pointeur][2]
+		register[R1] = register[R1] - register[R2]
+
+	if (liste_instr[pointeur][0] == "MUL"): #MUL
+		print("MUL")
+		R1 = liste_instr[pointeur][1]
+		R2 = liste_instr[pointeur][2]
+		register[R1] = register[R1] * register[R2]
+
+	if (liste_instr[pointeur][0] == "DIV"): #DIV
+		print("DIV")
+		R1 = liste_instr[pointeur][1]
+		R2 = liste_instr[pointeur][2]
+		register[R1] = register[R1] / register[R2]
+		
+
+	if (liste_instr[pointeur][0] == "AFC"): #AFC
+		print("AFC")
+		R1 = liste_instr[pointeur][1]
+		j = liste_instr[pointeur][2]
+		register[R1] = j
+
+	if (liste_instr[pointeur][0] == "LOAD"): #LOAD
+		print("LOAD")
+		R1 = liste_instr[pointeur][1]
+		addr2 = liste_instr[pointeur][2]
+		addr1 = liste_instr[pointeur][3] <<8
+		addr = addr1 + addr2
+
+		register[R1] = tab_memory[addr]
+
+	if (liste_instr[pointeur][0] == "STORE"): #STORE
 		print("STORE")
-		addr2 = ord(f.read(1))
-		R1 = ord(f.read(1))
-		addr1 = ord(f.read(1)) <<8
+		addr2 = liste_instr[pointeur][1]
+		R1 = liste_instr[pointeur][2]
+		addr1 = liste_instr[pointeur][3] <<8
 		addr = addr1 + addr2
 		tab_memory[addr] = register[R1]
 
-	if(ord(line) == 5): #MOV COP
+	if(liste_instr[pointeur][0] == "MOV"): #MOV COP
 		print("MOV")
-		R1 = ord(f.read(1))
-		R2 = ord(f.read(1))
-		f.read(1)  #Enleve padding
+		R1 = liste_instr[pointeur][1]
+		R2 = liste_instr[pointeur][2]
 		register[R1] = register[R2]
-	
+
+	if(liste_instr[pointeur][0] == "EQU"): #EQU
+		print("EQU")
+		R1 = liste_instr[pointeur][1]
+		R2 = liste_instr[pointeur][2]
+		if (register[R1] == register[R2]):
+			register[R1] = 1
+		else:
+			register[R1] = 0
+
+	if(liste_instr[pointeur][0] == "INF"): #INF
+		print("INF")
+		R1 = liste_instr[pointeur][1]
+		R2 = liste_instr[pointeur][2] 
+		if (register[R1] < register[R2]):
+			register[R1] = 1
+		else:
+			register[R1] = 0
+
+	if(liste_instr[pointeur][0] == "INFE"): #INFE
+		print("INFE")
+		R1 = liste_instr[pointeur][1]
+		R2 = liste_instr[pointeur][2] 
+		if (register[R1] <= register[R2]):
+			register[R1] = 1
+		else:
+			register[R1] = 0
+
+	if(liste_instr[pointeur][0] == "SUP"): #SUP
+		print("SUP")
+		R1 = liste_instr[pointeur][1]
+		R2 = liste_instr[pointeur][2] 
+		if (register[R1] > register[R2]):
+			register[R1] = 1
+		else:
+			register[R1] = 0
+
+	if(liste_instr[pointeur][0] == "SUPE"): #SUPE
+		print("SUPE")
+		R1 = liste_instr[pointeur][1]
+		R2 = liste_instr[pointeur][2] 
+		if (register[R1] >= register[R2]):
+			register[R1] = 1
+		else:
+			register[R1] = 0
+
+	if(liste_instr[pointeur][0] == "JMP"): #JMP
+		print("JMP")
+		addr2 = liste_instr[pointeur][1]
+		addr1 = liste_instr[pointeur][3] << 8
+		pointeur = addr1 + addr2 -1
+	if(liste_instr[pointeur][0] == "JMPC"): #JMPC
+		print("JMPC")
+		addr2 = liste_instr[pointeur][1]
+		R1 = liste_instr[pointeur][2]
+		addr1 = liste_instr[pointeur][3] << 8
+		if (register[R1] == 0):
+			pointeur = addr1 + addr2 -1
+
+	pointeur += 1
+
 	print("a = " + str(tab_memory[400]))
 	print("b = " + str(tab_memory[404]))
-	line = f.read(1)
 
 print("ok")
 print("a = " + str(tab_memory[400]))
 print("b = " + str(tab_memory[404]))
 
-
-
-f.close()
