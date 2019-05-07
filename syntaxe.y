@@ -144,6 +144,7 @@ idequ : tID tEQU			{
 ;
 
 expr : tID			{
+									printf("debug\n");
 									var_temp();
 									int i = guete(jean_louis,$1,pointeur);
 									add_line("LOAD",1,jean_louis[i].addr,-1);
