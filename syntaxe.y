@@ -391,6 +391,10 @@ void toBIN(){
 					*tmp=5;
 					fwrite(tmp,sizeof(int8_t), 1, fichier);
 				}
+				if(strcmp(ASM[i].id, "EQU") == 0){
+					*tmp=9;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
 				*tmp = (int8_t) ASM[i].val1;
 				fwrite(tmp,sizeof(int8_t), 1, fichier);
 				
