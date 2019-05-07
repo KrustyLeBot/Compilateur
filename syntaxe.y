@@ -107,7 +107,7 @@ instructions : tINT declint instructions		//Declaration int
 																}
 			instructions
 //Declaration expr artithmétique
-			| tIF {printf("debug\n");} if instructions
+			| tIF if instructions
 			| 
 ;
 
@@ -172,7 +172,7 @@ expr : tID			{
 	 | tPARL expr tPARR
 ;
 
-exprif : expr tEQU tEQU expr {operation(DOUBLE_EQU); printf("double equ\n");}
+exprif : {printf("double equ\n");} expr tEQU tEQU expr {operation(DOUBLE_EQU); printf("double equ\n");}
 ;
 
 if : tPARL exprif tPARR			{
