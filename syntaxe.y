@@ -95,7 +95,7 @@ int line;
 %%
 start : tMAIN tPARL tPARR corps {toBIN();print_lines();};	//Axiome de départ
 
-corps : tBRL {portee++;} instructions tBRR {portee --; pop_main();};
+corps : tBRL {portee++;} instructions tBRR {pop_main();portee --;};
 
 instructions : tINT declint instructions		//Declaration int
 			| tCONST tINT declint instructions 	//Declaration const int

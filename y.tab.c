@@ -1352,7 +1352,7 @@ yyreduce:
 
   case 4:
 #line 98 "syntaxe.y" /* yacc.c:1646  */
-    {portee --; pop_main();}
+    {pop_main();portee --;}
 #line 1357 "y.tab.c" /* yacc.c:1646  */
     break;
 

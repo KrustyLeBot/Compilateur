@@ -20,3 +20,10 @@ main(){
 		resultat = a-b;
 	}
 }
+
+main(){int a = 2;if(a==1){a=99;}else{a=55;}}
+
+
+main(){int a = 2;if(2==2){a=0;}}
+
+main(){int a = 2;if(a=2){a=0;}}
