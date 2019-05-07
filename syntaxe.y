@@ -178,15 +178,15 @@ if : tPARL expr tPARR			{
 													}
 			patch_line corps {add_line("JMP",-1,-1,-1);}
 			patch_line maybe_else			{
-																	if($7){
-																	//si else on patch le JMP vers la fin du else et le JCVD vers le patch_line avant le else
-																	patch_line($6,"JMP",line,-1,-1);
-																	patch_line($4,"JCVD",$6,0,-1);
+																	if($9){
+																	//si else on patch le JMP endif vers la fin du else et le JCVD before if vers le patch_line avant le else
+																	patch_line($8,"JMP",line,-1,-1);
+																	patch_line($5,"JCVD",$8,0,-1);
 																	}
 																	else{
 																		//sinon on del le JMP a la fin du else et on patch le JCVD vers le dernier patch_line
 																		rm_line_last();
-																		patch_line($4,"JCVD",line,0,-1);
+																		patch_line($5,"JCVD",line,0,-1);
 																	}
 																}
 ;
