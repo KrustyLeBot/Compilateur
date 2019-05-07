@@ -182,7 +182,7 @@ if : tPARL expr tPARR			{
 			patch_line maybe_else			{
 																	if($9){
 																	//si else on patch le JMP endif vers la fin du else et le JCVD before if vers le patch_line avant le else
-																	patch_line($8,"JMP",line,-1,-1);
+																	patch_line($8,"JMP",line+1,-1,-1);
 																	printf("%d\n",$8);
 																	patch_line($5,"JCVD",$8,0,-1);
 																	}
@@ -198,7 +198,7 @@ maybe_else : tELSE corps {$$ = 1;}
 	 | {$$ = 0;}
 ;
 
-patch_line : {$$ = line-1;}
+patch_line : {$$ = line;}
 ;
 
 %%
@@ -213,7 +213,6 @@ void yyerror(char *msg) {
 ////////////////////////////////////////////////////////////////////////
 
 void print_lines(){
-	printf("lineeeeeeeeeeeeee: %d\n",line);
 	for(int i = 0; i < line; i++){
 		if(strcmp(ASM[i].id,"LOAD")==0){
 			printf("%s R%d @%d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
