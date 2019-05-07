@@ -170,7 +170,7 @@ expr : tID			{
 												add_line("STORE",jean_louis[pointeur].addr,1,-1);
 											}	
 	 | tPARL expr tPARR	
-	 | expr tEQU tEQU expr	{operation(DOUBLE_EQU); printf("double equ\n");}
+	 | expr tEQU {printf("double equ\n");} tEQU {printf("double equ\n");} expr	{operation(DOUBLE_EQU); printf("double equ\n");}
 ;
 
 if : tPARL expr tPARR			{
