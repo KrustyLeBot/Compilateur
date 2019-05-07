@@ -173,7 +173,6 @@ expr : tID			{
 ;
 
 exprif : expr tEQU tEQU expr {operation(DOUBLE_EQU); printf("double equ\n");}
-	 | expr
 ;
 
 if : tPARL exprif tPARR			{
