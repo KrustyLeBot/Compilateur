@@ -144,7 +144,6 @@ idequ : tID tEQU			{
 ;
 
 expr : tID			{
-									printf("debug\n");
 									var_temp();
 									int i = guete(jean_louis,$1,pointeur);
 									add_line("LOAD",1,jean_louis[i].addr,-1);
@@ -171,10 +170,11 @@ expr : tID			{
 												add_line("STORE",jean_louis[pointeur].addr,1,-1);
 											}	
 	 | tPARL expr tPARR	
-	 | expr tEQU tEQU expr	{operation(DOUBLE_EQU);printf("double equ\n");}
+	 | expr tEQU tEQU expr	{operation(DOUBLE_EQU); printf("double equ\n");}
 ;
 
 if : tPARL expr tPARR			{
+														printf("debug\n");
 														add_line("LOAD",0,jean_louis[pointeur].addr,-1);
 														//on fait un jump conditionel vers le else
 														add_line("JCVD",99,0,-1);
