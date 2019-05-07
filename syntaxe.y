@@ -170,19 +170,20 @@ expr : tID			{
 												add_line("STORE",jean_louis[pointeur].addr,1,-1);
 											}	
 	 | tPARL expr tPARR	
-	 | expr tEQU tEQU expr	{operation(DOUBLE_EQU);}
+	 | expr tEQU tEQU expr	{operation(DOUBLE_EQU);printf("double equ\n");}
 ;
 
 if : tPARL expr tPARR			{
 														add_line("LOAD",0,jean_louis[pointeur].addr,-1);
 														//on fait un jump conditionel vers le else
-														add_line("JCVD",-1,0,-1);
+														add_line("JCVD",99,0,-1);
 													}
-			patch_line corps {add_line("JMP",-1,-1,-1);}
+			patch_line corps {add_line("JMP",99,-1,-1);}
 			patch_line maybe_else			{
 																	if($9){
 																	//si else on patch le JMP endif vers la fin du else et le JCVD before if vers le patch_line avant le else
 																	patch_line($8,"JMP",line,-1,-1);
+																	printf("%d\n",$8);
 																	patch_line($5,"JCVD",$8,0,-1);
 																	}
 																	else{
@@ -218,6 +219,9 @@ void print_lines(){
 		}
 
 		else if(strcmp(ASM[i].id,"STORE")==0){
+			printf("%s @%d R%d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
+		}
+		else if(strcmp(ASM[i].id,"JCVD")==0){
 			printf("%s @%d R%d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
 		}
 		
