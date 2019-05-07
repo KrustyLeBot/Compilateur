@@ -213,6 +213,7 @@ void yyerror(char *msg) {
 ////////////////////////////////////////////////////////////////////////
 
 void print_lines(){
+	printf("lineeeeeeeeeeeeee: %d\n",line);
 	for(int i = 0; i < line; i++){
 		if(strcmp(ASM[i].id,"LOAD")==0){
 			printf("%s R%d @%d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
