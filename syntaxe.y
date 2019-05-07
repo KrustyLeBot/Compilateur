@@ -19,6 +19,7 @@ typedef enum type_op {
 	SUPE,
 	JMP,
 	JMPC,
+	DOUBLE_EQU,
 }type_op;
 
 
@@ -91,7 +92,7 @@ int line;
 %%
 start : tMAIN tPARL tPARR corps {toBIN();};	//Axiome de départ
 
-corps : tBRL {portee++;} instructions tBRR {portee --; print_lines();};
+corps : tBRL {portee++;} instructions tBRR {portee --; pop_main(); print_lines();};
 
 instructions : tINT declint instructions		//Declaration int
 			| tCONST tINT declint instructions 	//Declaration const int
@@ -99,6 +100,8 @@ instructions : tINT declint instructions		//Declaration int
 																	int i = guete(jean_louis,$1,pointeur);
 																	add_line("LOAD",1,jean_louis[pointeur].addr,-1);
 																	add_line("STORE",jean_louis[i].addr,1,-1);
+																	addr = pop_unique(jean_louis,pointeur);
+																	pointeur--;
 																}
 			instructions
 //Declaration expr artithmétique
@@ -154,7 +157,7 @@ expr : tID			{
 													add_line("LOAD",1,jean_louis[pointeur].addr,-1);
 													add_line("STORE",jean_louis[i].addr,1,-1);
 												}
-	 | expr tPLUS expr	{printf("debug 1\n");operation(ADD);}				
+	 | expr tPLUS expr	{operation(ADD);}				
 	 | expr tMOINS expr	{operation(SOU);}		
 	 | expr tSTAR expr	{operation(MUL);}	
 	 | expr tSLASH expr {operation(DIV);}		
@@ -165,6 +168,7 @@ expr : tID			{
 												add_line("STORE",jean_louis[pointeur].addr,1,-1);
 											}	
 	 | tPARL expr tPARR	
+	 | expr tEQU tEQU expr	{operation(DOUBLE_EQU);}
 ;
 
 if : tPARL expr tPARR			{
@@ -267,6 +271,9 @@ void operation(type_op param){
 			break;
 		case(EQU):
 			add_line("MOV",1,2,-1);
+			break;
+		case(DOUBLE_EQU):
+			add_line("EQU",1,2,-1);
 			break;
 	}
 	add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
@@ -380,7 +387,7 @@ int main() {
 	line = 0;
 	
 
-	printf("     === Salam alekoum compilator ===     \n");
+	printf("      === Flex et yacc compilator ===     \n");
 	printf("   ***Auteurs: Bravais J. et Wowk T.***\n");
 						
 
