@@ -107,7 +107,7 @@ instructions : tINT declint instructions		//Declaration int
 																}
 			instructions
 //Declaration expr artithmétique
-			| tIF if instructions
+			| tIF {printf("debug\n");} if instructions
 			| 
 ;
 
@@ -174,7 +174,6 @@ expr : tID			{
 ;
 
 if : tPARL expr tPARR			{
-														printf("debug\n");
 														add_line("LOAD",0,jean_louis[pointeur].addr,-1);
 														//on fait un jump conditionel vers le else
 														add_line("JCVD",99,0,-1);
