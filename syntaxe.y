@@ -176,7 +176,7 @@ exprif : expr tEQU tEQU expr {operation(DOUBLE_EQU); printf("double equ\n");}
 	 | expr
 ;
 
-if : tPARL expr tPARR			{
+if : tPARL exprif tPARR			{
 														add_line("LOAD",0,jean_louis[pointeur].addr,-1);
 														//on fait un jump conditionel vers le else
 														add_line("JCVD",99,0,-1);
