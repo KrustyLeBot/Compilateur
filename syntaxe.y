@@ -312,7 +312,7 @@ void toBIN(){
     {
 		int8_t * tmp = malloc(sizeof(char));
 		for(int i = 0; i < line; i++){
-			if(strcmp(ASM[i].id, "STORE") == 0 || strcmp(ASM[i].id, "LOAD") == 0){
+			if(strcmp(ASM[i].id, "STORE") == 0 || strcmp(ASM[i].id, "LOAD") == 0 || strcmp(ASM[i].id, "JMP") == 0 || strcmp(ASM[i].id, "JCVD") == 0){
 				if(strcmp(ASM[i].id, "LOAD") == 0){
 				*tmp=7;
 				fwrite(tmp,sizeof(int8_t), 1, fichier);
@@ -328,6 +328,32 @@ void toBIN(){
 				}
 				if(strcmp(ASM[i].id, "STORE") == 0){
 					*tmp=8;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+
+					*tmp = (int8_t) ASM[i].val1;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+					*tmp = (int8_t) ASM[i].val2;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+					*tmp = (int8_t) (ASM[i].val1>>8);
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "JMP") == 0){
+					*tmp=14;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+
+					*tmp = (int8_t) ASM[i].val1;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+					*tmp = (int8_t) ASM[i].val2;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				
+					*tmp = (int8_t) (ASM[i].val1>>8);
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "JCVD") == 0){
+					*tmp=15;
 					fwrite(tmp,sizeof(int8_t), 1, fichier);
 
 					*tmp = (int8_t) ASM[i].val1;
