@@ -37,6 +37,8 @@ void operation(type_op param);
 void pop_main();
 void print_lines();
 void toBIN();
+void rm_line_last();
+void patch_line(int l,char* id,int v1,int v2,int v3);
 
 struct element jean_louis[400];
 int pointeur; //val dernier elem jean_louis
@@ -236,7 +238,7 @@ void add_line(char *id,int v1, int v2, int v3){
 	line ++;
 }
 
-void patch_line(int l,int v1,int v2,int v3){
+void patch_line(int l,char* id,int v1,int v2,int v3){
 	int val3 = 0;
 	if(v3 != -1) val3 = v3;
 	struct instr tmp = {id, v1, v2, val3};
