@@ -51,17 +51,22 @@ extern int yydebug;
     tMOINS = 261,
     tSTAR = 262,
     tSLASH = 263,
-    tEQU = 264,
-    tPARL = 265,
-    tPARR = 266,
-    tBRL = 267,
-    tBRR = 268,
-    tVIR = 269,
-    tPVR = 270,
-    tCONST = 271,
-    tPRINTF = 272,
-    tNB = 273,
-    tID = 274
+    tDEQU = 264,
+    tEQU = 265,
+    tPARL = 266,
+    tPARR = 267,
+    tBRL = 268,
+    tBRR = 269,
+    tVIR = 270,
+    tPVR = 271,
+    tIF = 272,
+    tELSE = 273,
+    tTRUE = 274,
+    tFALSE = 275,
+    tCONST = 276,
+    tPRINTF = 277,
+    tNB = 278,
+    tID = 279
   };
 #endif
 /* Tokens.  */
@@ -71,29 +76,34 @@ extern int yydebug;
 #define tMOINS 261
 #define tSTAR 262
 #define tSLASH 263
-#define tEQU 264
-#define tPARL 265
-#define tPARR 266
-#define tBRL 267
-#define tBRR 268
-#define tVIR 269
-#define tPVR 270
-#define tCONST 271
-#define tPRINTF 272
-#define tNB 273
-#define tID 274
+#define tDEQU 264
+#define tEQU 265
+#define tPARL 266
+#define tPARR 267
+#define tBRL 268
+#define tBRR 269
+#define tVIR 270
+#define tPVR 271
+#define tIF 272
+#define tELSE 273
+#define tTRUE 274
+#define tFALSE 275
+#define tCONST 276
+#define tPRINTF 277
+#define tNB 278
+#define tID 279
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 
 union YYSTYPE
 {
-#line 51 "syntaxe.y" /* yacc.c:1909  */
+#line 54 "syntaxe.y" /* yacc.c:1909  */
 
 	int intValue;
 	char *stringValue;
 
-#line 97 "y.tab.h" /* yacc.c:1909  */
+#line 107 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
