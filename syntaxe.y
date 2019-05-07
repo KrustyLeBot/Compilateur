@@ -64,6 +64,7 @@ int line;
 %token tMOINS;
 %token tSTAR;
 %token tSLASH;
+%token tDEQU;
 %token tEQU;
 %token tPARL;
 %token tPARR;
@@ -170,9 +171,7 @@ expr : tID			{
 												add_line("STORE",jean_louis[pointeur].addr,1,-1);
 											}	
 	 | tPARL expr tPARR
-;
-
-exprif : {printf("double equ\n");} expr tEQU tEQU expr {operation(DOUBLE_EQU); printf("double equ\n");}
+	 | expr tDEQU expr {operation(DOUBLE_EQU); printf("double equ\n");}
 ;
 
 if : tPARL exprif tPARR			{
