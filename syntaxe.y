@@ -169,8 +169,11 @@ expr : tID			{
 												add_line("SOU",1,2,-1);
 												add_line("STORE",jean_louis[pointeur].addr,1,-1);
 											}	
-	 | tPARL expr tPARR	
-	 //| expr tEQU tEQU expr	{operation(DOUBLE_EQU); printf("double equ\n");}
+	 | tPARL expr tPARR
+;
+
+exprif : expr tEQU tEQU expr {operation(DOUBLE_EQU); printf("double equ\n");}
+	 | expr
 ;
 
 if : tPARL expr tPARR			{
