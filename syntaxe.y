@@ -183,7 +183,7 @@ if : tPARL expr tPARR			{
 			patch_line maybe_else			{
 																	if($9){
 																	//si else on patch le JMP endif vers la fin du else et le JCVD before if vers le patch_line avant le else
-																	patch_line($8,"JMP",line+1,-1,-1);
+																	patch_line($8,"JMP",line+1,0,-1);
 																	printf("%d\n",$8);
 																	patch_line($5,"JCVD",$8+2,0,-1);
 																	}
