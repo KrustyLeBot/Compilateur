@@ -527,7 +527,7 @@ static const yytype_uint8 yyrline[] =
        0,    96,    96,    98,    98,   100,   101,   102,   102,   111,
      112,   115,   115,   124,   131,   135,   141,   147,   153,   158,
      163,   164,   165,   166,   167,   173,   174,   177,   182,   177,
-     198,   199,   202
+     197,   198,   201
 };
 #endif
 
@@ -1352,7 +1352,7 @@ yyreduce:
 
   case 4:
 #line 98 "syntaxe.y" /* yacc.c:1646  */
-    {portee --; pop_main();}
+    {printf("On pop\n");pop_main();portee --;}
 #line 1357 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1511,7 +1511,10 @@ yyreduce:
 																	if((yyvsp[0].intValue)){
 																	//si else on patch le JMP endif vers la fin du else et le JCVD before if vers le patch_line avant le else
 																	patch_line((yyvsp[-1].intValue),"JMP",line+1,0,-1);
+<<<<<<< HEAD
+=======
 																	printf("%d\n",(yyvsp[-1].intValue));
+>>>>>>> 7d620816077e4718e7b0e3779ef0c4ef3f2bc5c8
 																	patch_line((yyvsp[-4].intValue),"JCVD",(yyvsp[-1].intValue)+2,0,-1);
 																	}
 																	else{
@@ -1520,29 +1523,29 @@ yyreduce:
 																		patch_line((yyvsp[-4].intValue),"JCVD",line,0,-1);
 																	}
 																}
-#line 1524 "y.tab.c" /* yacc.c:1646  */
+#line 1523 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 198 "syntaxe.y" /* yacc.c:1646  */
+#line 197 "syntaxe.y" /* yacc.c:1646  */
     {(yyval.intValue) = 1;}
-#line 1530 "y.tab.c" /* yacc.c:1646  */
+#line 1529 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 199 "syntaxe.y" /* yacc.c:1646  */
+#line 198 "syntaxe.y" /* yacc.c:1646  */
     {(yyval.intValue) = 0;}
-#line 1536 "y.tab.c" /* yacc.c:1646  */
+#line 1535 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 202 "syntaxe.y" /* yacc.c:1646  */
+#line 201 "syntaxe.y" /* yacc.c:1646  */
     {(yyval.intValue) = line-1;}
-#line 1542 "y.tab.c" /* yacc.c:1646  */
+#line 1541 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1546 "y.tab.c" /* yacc.c:1646  */
+#line 1545 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1770,7 +1773,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 205 "syntaxe.y" /* yacc.c:1906  */
+#line 204 "syntaxe.y" /* yacc.c:1906  */
 
 
 void yyerror(char *msg) {
@@ -1858,7 +1861,7 @@ void operation(type_op param){
 }
 
 void pop_main(){
-	pointeur = pop(jean_louis, pointeur);
+	pointeur = pop(jean_louis, pointeur, portee);
 	
 	int tmp = 0;
 	switch(jean_louis[pointeur].typeparam){
