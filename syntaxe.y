@@ -95,7 +95,7 @@ int line;
 %%
 start : tMAIN tPARL tPARR corps {toBIN();print_lines();};	//Axiome de départ
 
-corps : tBRL {portee++;} instructions tBRR {portee --; pop_main();};
+corps : tBRL {portee++;} instructions tBRR {printf("On pop\n");pop_main();portee --;};
 
 instructions : tINT declint instructions		//Declaration int
 			| tCONST tINT declint instructions 	//Declaration const int
@@ -184,7 +184,6 @@ if : tPARL expr tPARR			{
 																	if($9){
 																	//si else on patch le JMP endif vers la fin du else et le JCVD before if vers le patch_line avant le else
 																	patch_line($8,"JMP",line+1,0,-1);
-																	printf("%d\n",$8);
 																	patch_line($5,"JCVD",$8+2,0,-1);
 																	}
 																	else{
@@ -289,7 +288,7 @@ void operation(type_op param){
 }
 
 void pop_main(){
-	pointeur = pop(jean_louis, pointeur);
+	pointeur = pop(jean_louis, pointeur, portee);
 	
 	int tmp = 0;
 	switch(jean_louis[pointeur].typeparam){
