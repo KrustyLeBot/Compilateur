@@ -9,7 +9,6 @@ int pop(struct element* tab, int pt_pas_pt, int portee){
 
 	int porteelocale = portee;
 	while((tab[pt_pas_pt].portee == porteelocale) && (pt_pas_pt >= 0)){
-		printf("pop: %s portee %d\n",tab[pt_pas_pt].nom,tab[pt_pas_pt].portee);
 		pt_pas_pt --;
 	}
 	

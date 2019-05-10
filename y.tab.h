@@ -53,20 +53,25 @@ extern int yydebug;
     tSLASH = 263,
     tDEQU = 264,
     tEQU = 265,
-    tPARL = 266,
-    tPARR = 267,
-    tBRL = 268,
-    tBRR = 269,
-    tVIR = 270,
-    tPVR = 271,
-    tIF = 272,
-    tELSE = 273,
-    tTRUE = 274,
-    tFALSE = 275,
-    tCONST = 276,
-    tPRINTF = 277,
-    tNB = 278,
-    tID = 279
+    tINF = 266,
+    tSUP = 267,
+    tINFE = 268,
+    tSUPE = 269,
+    tPARL = 270,
+    tPARR = 271,
+    tBRL = 272,
+    tBRR = 273,
+    tVIR = 274,
+    tPVR = 275,
+    tIF = 276,
+    tWHILE = 277,
+    tELSE = 278,
+    tTRUE = 279,
+    tFALSE = 280,
+    tCONST = 281,
+    tPRINTF = 282,
+    tNB = 283,
+    tID = 284
   };
 #endif
 /* Tokens.  */
@@ -78,20 +83,25 @@ extern int yydebug;
 #define tSLASH 263
 #define tDEQU 264
 #define tEQU 265
-#define tPARL 266
-#define tPARR 267
-#define tBRL 268
-#define tBRR 269
-#define tVIR 270
-#define tPVR 271
-#define tIF 272
-#define tELSE 273
-#define tTRUE 274
-#define tFALSE 275
-#define tCONST 276
-#define tPRINTF 277
-#define tNB 278
-#define tID 279
+#define tINF 266
+#define tSUP 267
+#define tINFE 268
+#define tSUPE 269
+#define tPARL 270
+#define tPARR 271
+#define tBRL 272
+#define tBRR 273
+#define tVIR 274
+#define tPVR 275
+#define tIF 276
+#define tWHILE 277
+#define tELSE 278
+#define tTRUE 279
+#define tFALSE 280
+#define tCONST 281
+#define tPRINTF 282
+#define tNB 283
+#define tID 284
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -103,7 +113,7 @@ union YYSTYPE
 	int intValue;
 	char *stringValue;
 
-#line 107 "y.tab.h" /* yacc.c:1909  */
+#line 117 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

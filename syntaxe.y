@@ -66,6 +66,10 @@ int line;
 %token tSLASH;
 %token tDEQU;
 %token tEQU;
+%token tINF;
+%token tSUP;
+%token tINFE;
+%token tSUPE;
 %token tPARL;
 %token tPARR;
 %token tBRL;
@@ -73,6 +77,7 @@ int line;
 %token tVIR;
 %token tPVR;
 %token tIF;
+%token tWHILE;
 %token tELSE;
 %token tTRUE;
 %token tFALSE;
@@ -109,6 +114,7 @@ instructions : tINT declint instructions		//Declaration int
 			instructions
 //Declaration expr artithmétique
 			| tIF if instructions
+			| tWHILE while instructions
 			| 
 ;
 
@@ -171,7 +177,11 @@ expr : tID			{
 												add_line("STORE",jean_louis[pointeur].addr,1,-1);
 											}	
 	 | tPARL expr tPARR
-	 | expr tDEQU expr {operation(DOUBLE_EQU); printf("double equ\n");}
+	 | expr tDEQU expr {operation(DOUBLE_EQU);}
+	 | expr tINF expr {operation(INF);}
+	 | expr tINFE expr {operation(INFE);}
+	 | expr tSUP expr {operation(SUP);}
+	 | expr tSUPE expr {operation(SUPE);}
 ;
 
 if : tPARL expr tPARR			{
@@ -184,7 +194,7 @@ if : tPARL expr tPARR			{
 																	if($9){
 																	//si else on patch le JMP endif vers la fin du else et le JCVD before if vers le patch_line avant le else
 																	patch_line($8,"JMP",line+1,0,-1);
-																	patch_line($5,"JCVD",$8+2,0,-1);
+																	patch_line($5,"JCVD",$8+1,0,-1);
 																	}
 																	else{
 																		//sinon on del le JMP a la fin du else et on patch le JCVD vers le dernier patch_line
@@ -192,6 +202,20 @@ if : tPARL expr tPARR			{
 																		patch_line($5,"JCVD",line,0,-1);
 																	}
 																}
+;
+
+while : patch_line tPARL expr tPARR			{
+																					add_line("LOAD",0,jean_louis[pointeur].addr,-1);
+																					//on fait un jump conditionel vers la fin du while
+																					add_line("JCVD",99,0,-1);
+																				}
+			patch_line corps {add_line("JMP",99,-1,-1);}
+			patch_line			{
+												//on patch le JCVD poste while vers la ligne apres le corps et le JMP de fin de while vers la ligne au dessus de la condition pour pouvoir la reevaluer
+												patch_line($9,"JMP",$1+1,0,-1);
+												patch_line($6,"JCVD",$9+1,0,-1);
+											}
+
 ;
 
 maybe_else : tELSE corps {$$ = 1;}
@@ -280,6 +304,18 @@ void operation(type_op param){
 			break;
 		case(DOUBLE_EQU):
 			add_line("EQU",1,2,-1);
+			break;
+		case(INF):
+			add_line("INF",1,2,-1);
+			break;
+		case(INFE):
+			add_line("INFE",1,2,-1);
+			break;
+		case(SUP):
+			add_line("SUP",1,2,-1);
+			break;
+		case(SUPE):
+			add_line("SUPE",1,2,-1);
 			break;
 	}
 	add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
@@ -394,6 +430,23 @@ void toBIN(){
 					*tmp=9;
 					fwrite(tmp,sizeof(int8_t), 1, fichier);
 				}
+				if(strcmp(ASM[i].id, "INF") == 0){
+					*tmp=10;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "INFE") == 0){
+					*tmp=11;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "SUP") == 0){
+					*tmp=12;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+				if(strcmp(ASM[i].id, "SUPE") == 0){
+					*tmp=13;
+					fwrite(tmp,sizeof(int8_t), 1, fichier);
+				}
+
 				*tmp = (int8_t) ASM[i].val1;
 				fwrite(tmp,sizeof(int8_t), 1, fichier);
 				
@@ -404,6 +457,11 @@ void toBIN(){
 				fwrite(tmp,sizeof(int8_t), 1, fichier);
 			}					
 		}
+		*tmp = 255;
+		fwrite(tmp,sizeof(int8_t), 1, fichier);
+		fwrite(tmp,sizeof(int8_t), 1, fichier);
+		fwrite(tmp,sizeof(int8_t), 1, fichier);
+		fwrite(tmp,sizeof(int8_t), 1, fichier);
 		fclose(fichier);
     }
     else
@@ -419,7 +477,7 @@ void toBIN(){
 int main() {
 	pointeur = -1;
 	portee = 0;
-	addr = 400;
+	addr = 0;
 	line = 0;
 	
 

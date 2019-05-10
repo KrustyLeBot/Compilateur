@@ -15,6 +15,10 @@
 "/" return tSLASH;
 "==" return tDEQU;
 "=" return tEQU;
+"<" return tINF;
+">" return tSUP;
+"<=" return tINFE;
+">=" return tSUPE;
 "(" return tPARL;
 ")" return tPARR;
 "{" return tBRL;
@@ -22,11 +26,12 @@
 "," return tVIR;
 ";" return tPVR;
 "if" return tIF;
+"while" return tWHILE;
 "else" return tELSE;
 "True" return tTRUE;
 "False" return tFALSE;
 "const" return tCONST;
 "printf" return tPRINTF;
-"Balkany" printf("Je suis l'homme le plus honnete du monde\n");
+"balkany" printf("Je suis l'homme le plus honnete du monde\n");
 [0-9]+  {yylval.intValue = atoi(yytext); return tNB;}
 [A-Za-z][A-Za-z0-9_]* {yylval.stringValue = strdup(yytext); return tID;}
