@@ -1511,10 +1511,6 @@ yyreduce:
 																	if((yyvsp[0].intValue)){
 																	//si else on patch le JMP endif vers la fin du else et le JCVD before if vers le patch_line avant le else
 																	patch_line((yyvsp[-1].intValue),"JMP",line+1,0,-1);
-<<<<<<< HEAD
-=======
-																	printf("%d\n",(yyvsp[-1].intValue));
->>>>>>> 7d620816077e4718e7b0e3779ef0c4ef3f2bc5c8
 																	patch_line((yyvsp[-4].intValue),"JCVD",(yyvsp[-1].intValue)+2,0,-1);
 																	}
 																	else{
