@@ -1,8 +1,5 @@
-compiler: y.tab.c lex.yy.c TableSymboles.o
-	gcc -o compiler y.tab.c lex.yy.c TableSymboles.o -lg -ll
-
-TableSymboles.o: TableSymboles.c
-	gcc -o TableSymboles.o -c TableSymboles.c
+compiler: y.tab.o lex.yy.o TableSymboles.o
+	gcc -o compiler y.tab.o lex.yy.o TableSymboles.o -lg -ll
 
 y.tab.c: syntaxe.y
 	yacc -d syntaxe.y
