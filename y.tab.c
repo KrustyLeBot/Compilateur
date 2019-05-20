@@ -68,6 +68,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Types d'opérations
 typedef enum type_op {
 	ADD,
 	MUL,
@@ -85,9 +86,12 @@ typedef enum type_op {
 	JMP,
 	JMPC,
 	DOUBLE_EQU,
+	AND,
+	OR,
 }type_op;
 
 
+//Structure d'une instructions
 struct instr{
 	char * id;
 	int val1;
@@ -95,6 +99,7 @@ struct instr{
 	int val3;
 };
 
+//Definition des fonctions
 void yyerror(char *msg);
 void add_line(char *id,int v1, int v2, int v3);
 void var_temp();
@@ -105,17 +110,18 @@ void toBIN();
 void rm_line_last();
 void patch_line(int l,char* id,int v1,int v2,int v3);
 
+//Definition variables globales
 struct element jean_louis[400];
 int pointeur; //val dernier elem jean_louis
-int portee;
-int addr;
-struct instr ASM[5000];
-int line;
+int portee; //portéee d'une variable
+int addr; //addresse de la prochaine varibale
+struct instr ASM[5000]; //Tableau d'instruction assembleur
+int line; //Ligne de la derniere instr
 
 
 
 
-#line 119 "y.tab.c" /* yacc.c:339  */
+#line 125 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -151,74 +157,88 @@ extern int yydebug;
   enum yytokentype
   {
     tMAIN = 258,
-    tINT = 259,
-    tPLUS = 260,
-    tMOINS = 261,
-    tSTAR = 262,
-    tSLASH = 263,
-    tDEQU = 264,
-    tEQU = 265,
-    tINF = 266,
-    tSUP = 267,
-    tINFE = 268,
-    tSUPE = 269,
-    tPARL = 270,
-    tPARR = 271,
-    tBRL = 272,
-    tBRR = 273,
-    tVIR = 274,
-    tPVR = 275,
-    tIF = 276,
-    tWHILE = 277,
-    tELSE = 278,
-    tTRUE = 279,
-    tFALSE = 280,
-    tCONST = 281,
-    tPRINTF = 282,
-    tNB = 283,
-    tID = 284
+    tINTSTAR = 259,
+    tINT = 260,
+    tPLUS = 261,
+    tMOINS = 262,
+    tSTAR = 263,
+    tSLASH = 264,
+    tDEQU = 265,
+    tEQU = 266,
+    tINF = 267,
+    tSUP = 268,
+    tINFE = 269,
+    tSUPE = 270,
+    tPARL = 271,
+    tPARR = 272,
+    tBRL = 273,
+    tBRR = 274,
+    tVIR = 275,
+    tPVR = 276,
+    tQM = 277,
+    tDP = 278,
+    tIF = 279,
+    tWHILE = 280,
+    tFOR = 281,
+    tELSE = 282,
+    tTRUE = 283,
+    tFALSE = 284,
+    tCONST = 285,
+    tPRINTF = 286,
+    tAND = 287,
+    tOR = 288,
+    tESPER = 289,
+    tNB = 290,
+    tID = 291
   };
 #endif
 /* Tokens.  */
 #define tMAIN 258
-#define tINT 259
-#define tPLUS 260
-#define tMOINS 261
-#define tSTAR 262
-#define tSLASH 263
-#define tDEQU 264
-#define tEQU 265
-#define tINF 266
-#define tSUP 267
-#define tINFE 268
-#define tSUPE 269
-#define tPARL 270
-#define tPARR 271
-#define tBRL 272
-#define tBRR 273
-#define tVIR 274
-#define tPVR 275
-#define tIF 276
-#define tWHILE 277
-#define tELSE 278
-#define tTRUE 279
-#define tFALSE 280
-#define tCONST 281
-#define tPRINTF 282
-#define tNB 283
-#define tID 284
+#define tINTSTAR 259
+#define tINT 260
+#define tPLUS 261
+#define tMOINS 262
+#define tSTAR 263
+#define tSLASH 264
+#define tDEQU 265
+#define tEQU 266
+#define tINF 267
+#define tSUP 268
+#define tINFE 269
+#define tSUPE 270
+#define tPARL 271
+#define tPARR 272
+#define tBRL 273
+#define tBRR 274
+#define tVIR 275
+#define tPVR 276
+#define tQM 277
+#define tDP 278
+#define tIF 279
+#define tWHILE 280
+#define tFOR 281
+#define tELSE 282
+#define tTRUE 283
+#define tFALSE 284
+#define tCONST 285
+#define tPRINTF 286
+#define tAND 287
+#define tOR 288
+#define tESPER 289
+#define tNB 290
+#define tID 291
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 
 union YYSTYPE
 {
-#line 54 "syntaxe.y" /* yacc.c:355  */
+#line 61 "syntaxe.y" /* yacc.c:355  */
 
 	int intValue;
 	char *stringValue;
 
-#line 222 "y.tab.c" /* yacc.c:355  */
+#line 242 "y.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -235,7 +255,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 239 "y.tab.c" /* yacc.c:358  */
+#line 259 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -477,21 +497,21 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   142
+#define YYLAST   314
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  30
+#define YYNTOKENS  37
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  18
+#define YYNNTS  29
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  40
+#define YYNRULES  64
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  88
+#define YYNSTATES  153
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   284
+#define YYMAXUTOK   291
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -528,18 +548,21 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    36
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_uint16 yyrline[] =
 {
-       0,   101,   101,   103,   103,   105,   106,   107,   107,   116,
-     117,   118,   121,   121,   130,   137,   141,   147,   153,   159,
-     164,   169,   170,   171,   172,   173,   179,   180,   181,   182,
-     183,   184,   187,   192,   187,   207,   212,   207,   221,   222,
-     225
+       0,   119,   119,   123,   123,   126,   127,   128,   129,   129,
+     145,   145,   153,   154,   155,   156,   157,   161,   161,   170,
+     177,   181,   187,   187,   195,   201,   205,   212,   219,   226,
+     232,   237,   242,   248,   253,   254,   255,   256,   257,   263,
+     264,   265,   266,   267,   268,   269,   279,   289,   297,   298,
+     289,   304,   311,   304,   326,   327,   328,   331,   338,   331,
+     347,   354,   361,   347,   370
 };
 #endif
 
@@ -548,13 +571,15 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "tMAIN", "tINT", "tPLUS", "tMOINS",
-  "tSTAR", "tSLASH", "tDEQU", "tEQU", "tINF", "tSUP", "tINFE", "tSUPE",
-  "tPARL", "tPARR", "tBRL", "tBRR", "tVIR", "tPVR", "tIF", "tWHILE",
-  "tELSE", "tTRUE", "tFALSE", "tCONST", "tPRINTF", "tNB", "tID", "$accept",
-  "start", "corps", "$@1", "instructions", "$@2", "declint", "$@3",
-  "idequ", "expr", "if", "$@4", "$@5", "while", "$@6", "$@7", "maybe_else",
-  "patch_line", YY_NULLPTR
+  "$end", "error", "$undefined", "tMAIN", "tINTSTAR", "tINT", "tPLUS",
+  "tMOINS", "tSTAR", "tSLASH", "tDEQU", "tEQU", "tINF", "tSUP", "tINFE",
+  "tSUPE", "tPARL", "tPARR", "tBRL", "tBRR", "tVIR", "tPVR", "tQM", "tDP",
+  "tIF", "tWHILE", "tFOR", "tELSE", "tTRUE", "tFALSE", "tCONST", "tPRINTF",
+  "tAND", "tOR", "tESPER", "tNB", "tID", "$accept", "start", "corps",
+  "$@1", "instructions", "$@2", "$@3", "declint", "$@4", "declintstar",
+  "$@5", "idequ", "idequstar", "expr", "$@6", "$@7", "$@8", "if", "$@9",
+  "$@10", "maybe_else", "while", "$@11", "$@12", "for", "$@13", "$@14",
+  "$@15", "patch_line", YY_NULLPTR
 };
 #endif
 
@@ -565,33 +590,41 @@ static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   277,   278,   279,   280,   281,   282,   283,   284
+     275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
+     285,   286,   287,   288,   289,   290,   291
 };
 # endif
 
-#define YYPACT_NINF -22
+#define YYPACT_NINF -111
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-22)))
+  (!!((Yystate) == (-111)))
 
-#define YYTABLE_NINF -1
+#define YYTABLE_NINF -17
 
 #define yytable_value_is_error(Yytable_value) \
   0
 
   /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
      STATE-NUM.  */
-static const yytype_int8 yypact[] =
+static const yytype_int16 yypact[] =
 {
-       5,    -5,     9,    -4,   -22,    -3,   -22,   -22,    -2,   -14,
-       6,   -22,    19,     3,     8,   102,    -2,     1,     1,    -2,
-      -2,    13,   -14,     1,   -22,   -22,   -14,   -22,   -22,     1,
-       1,   -22,    31,    39,    73,   -22,   -22,     1,    -2,    55,
-     -22,   127,    85,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,   -22,    23,   -22,    97,   -22,   -22,   -22,
-     118,   127,   127,   105,   105,   118,   118,   118,   118,   118,
-     -14,   -22,   -22,    -2,   -22,    -3,   -22,   -22,   -22,    -3,
-     -22,   -22,    20,   -22,    -3,   -22,   -22,   -22
+       2,    -9,     8,    -4,  -111,     0,  -111,  -111,    96,  -111,
+     -22,   -13,   -11,    10,  -111,    14,    51,    50,    45,    -1,
+      96,    47,    55,    96,    47,    57,    47,    96,    96,    61,
+      66,    96,   -13,    47,  -111,  -111,   -22,  -111,  -111,    47,
+      42,    47,    43,  -111,    73,   121,  -111,   -13,  -111,  -111,
+     131,    47,   159,  -111,  -111,    47,    52,  -111,    96,   172,
+    -111,    25,  -111,   200,  -111,    47,    47,    47,    47,    47,
+      47,    47,    47,    47,    47,  -111,    47,    47,    67,  -111,
+    -111,    76,   213,  -111,   241,    75,    47,  -111,  -111,    47,
+    -111,   269,    25,    25,    79,    79,   269,   269,   269,   269,
+     269,   269,   269,   -22,   -13,  -111,  -111,  -111,   269,    96,
+     253,  -111,  -111,    96,     0,  -111,    77,  -111,    81,  -111,
+    -111,     0,  -111,  -111,  -111,  -111,    47,  -111,    72,  -111,
+     269,    47,   -12,  -111,  -111,  -111,   269,    10,  -111,    84,
+    -111,  -111,    47,    83,   281,  -111,     0,  -111,  -111,    47,
+    -111,   269,  -111
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -599,105 +632,159 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     0,     1,     0,     3,     2,    11,     0,
-       0,    40,     0,     0,     0,     0,    11,     0,     0,    11,
-      11,     0,     0,     0,     4,    17,     0,    15,     5,     0,
-       0,    19,    18,    12,     0,     9,    10,     0,    11,     0,
-      16,    25,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,    14,     0,    32,     0,     6,     7,    26,
-      20,    21,    22,    23,    24,    27,    28,    30,    29,    31,
-       0,    40,    35,    11,    13,     0,    40,     8,    33,     0,
-      40,    36,    39,    40,     0,    34,    37,    38
+       0,     0,     0,     0,     1,     0,     3,     2,     0,    15,
+       0,     0,     0,     0,    64,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     4,    28,     0,    25,     7,     0,
+       0,     0,     0,    30,    29,    22,    27,     0,    20,     5,
+      17,     0,     0,    12,    13,     0,     0,    14,     0,     0,
+      26,    38,    32,     0,    33,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,    24,     0,     0,     0,    21,
+      19,     0,     0,    51,     0,     0,     0,     6,     8,     0,
+      39,    31,    34,    35,    36,    37,    40,    41,    43,    42,
+      44,    45,    46,     0,     0,    10,    64,    57,    60,     0,
+       0,    23,    18,     0,     0,    64,     0,     9,     0,    11,
+      52,     0,    64,    47,    64,    58,     0,    64,    56,    64,
+      61,     0,     0,    53,    59,    64,    48,     0,    55,     0,
+      64,    54,     0,     0,     0,    64,     0,    49,    62,     0,
+      64,    50,    63
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -22,   -22,    58,   -22,   -16,   -22,   -21,   -22,   -22,   -12,
-     -22,   -22,   -22,   -22,   -22,   -22,   -22,    -6
+    -111,  -111,  -110,  -111,     1,  -111,  -111,   -31,  -111,   -33,
+    -111,    53,  -111,   -24,  -111,  -111,  -111,   -29,  -111,  -111,
+    -111,  -111,  -111,  -111,  -111,  -111,  -111,  -111,   -55
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
-static const yytype_int8 yydefgoto[] =
+static const yytype_int16 yydefgoto[] =
 {
-      -1,     2,     7,     8,    14,    73,    16,    54,    17,    33,
-      19,    71,    80,    20,    76,    83,    85,    21
+      -1,     2,     7,     8,    18,   109,   113,    23,    81,    20,
+      78,    24,    21,    45,   127,   140,   149,    27,   106,   124,
+     133,    28,   115,   129,    31,   116,   135,   150,    29
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
      positive, shift that token.  If negative, reduce the rule whose
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
-static const yytype_uint8 yytable[] =
+static const yytype_int16 yytable[] =
 {
-      28,    38,     9,    35,    36,    40,    34,    29,     1,     4,
-       3,    39,     5,    23,     6,    15,    30,    41,    42,    10,
-      11,    18,    57,    22,    12,    56,    24,    13,    37,    31,
-      32,    60,    61,    62,    63,    64,    65,    66,    67,    68,
-      69,    43,    70,    84,    44,    45,    46,    47,    48,    74,
-      49,    50,    51,    52,     0,     0,     0,    77,     0,    53,
-      44,    45,    46,    47,    48,    75,    49,    50,    51,    52,
-      79,     0,     0,     0,    82,    58,     0,    86,    44,    45,
-      46,    47,    48,     0,    49,    50,    51,    52,     0,    55,
-      44,    45,    46,    47,    48,     0,    49,    50,    51,    52,
-       0,    59,    44,    45,    46,    47,    48,     0,    49,    50,
-      51,    52,    25,    72,    48,     0,    49,    50,    51,    52,
-       0,    26,    27,    44,    45,    46,    47,    48,     0,    49,
-      50,    51,    52,    78,    46,    47,    48,    81,    49,    50,
-      51,    52,    87
+      50,    58,    52,    60,   120,     1,     6,     3,     4,    59,
+      35,   125,   137,     5,    19,    61,    79,    63,     6,    36,
+      37,    38,   138,    22,    49,    25,    26,    82,    53,    54,
+      30,    84,    57,    68,    69,    70,   148,    71,    72,    73,
+      74,    91,    92,    93,    94,    95,    96,    97,    98,    99,
+     100,   114,   101,   102,    39,    40,    32,    76,    77,    87,
+     121,    33,   108,    41,    34,   110,    46,   126,    51,   128,
+     111,    56,   131,   112,   134,    47,    48,    55,    62,    64,
+     139,    42,    43,    44,    65,   143,    46,   103,    85,    70,
+     147,    71,    72,    73,    74,   152,   104,     9,   122,   132,
+      10,    11,   130,   123,    12,   142,   145,   136,   141,    86,
+     117,    76,    77,     0,   119,   -16,     0,     0,   144,     0,
+      13,    14,    15,     0,     0,   151,    16,    66,    67,    68,
+      69,    70,    17,    71,    72,    73,    74,    66,    67,    68,
+      69,    70,    75,    71,    72,    73,    74,     0,     0,     0,
+       0,     0,    80,    76,    77,     0,     0,     0,     0,     0,
+       0,     0,     0,    76,    77,    66,    67,    68,    69,    70,
+       0,    71,    72,    73,    74,     0,    83,     0,    66,    67,
+      68,    69,    70,     0,    71,    72,    73,    74,     0,     0,
+       0,    76,    77,    88,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,    76,    77,    66,    67,    68,    69,
+      89,     0,    71,    72,    73,    74,     0,    90,     0,    66,
+      67,    68,    69,    70,     0,    71,    72,    73,    74,     0,
+       0,     0,    76,    77,   105,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,    76,    77,    66,    67,    68,
+      69,    70,     0,    71,    72,    73,    74,     0,   107,    66,
+      67,    68,    69,    70,     0,    71,    72,    73,    74,     0,
+     118,     0,     0,    76,    77,    66,    67,    68,    69,    70,
+       0,    71,    72,    73,    74,    76,    77,    66,    67,    68,
+      69,    70,     0,    71,    72,    73,    74,     0,   146,     0,
+       0,    76,    77,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,    76,    77
 };
 
-static const yytype_int8 yycheck[] =
+static const yytype_int16 yycheck[] =
 {
-      16,    22,     4,    19,    20,    26,    18,     6,     3,     0,
-      15,    23,    16,    10,    17,    29,    15,    29,    30,    21,
-      22,    15,    38,     4,    26,    37,    18,    29,    15,    28,
-      29,    43,    44,    45,    46,    47,    48,    49,    50,    51,
-      52,    10,    19,    23,     5,     6,     7,     8,     9,    70,
-      11,    12,    13,    14,    -1,    -1,    -1,    73,    -1,    20,
-       5,     6,     7,     8,     9,    71,    11,    12,    13,    14,
-      76,    -1,    -1,    -1,    80,    20,    -1,    83,     5,     6,
-       7,     8,     9,    -1,    11,    12,    13,    14,    -1,    16,
-       5,     6,     7,     8,     9,    -1,    11,    12,    13,    14,
-      -1,    16,     5,     6,     7,     8,     9,    -1,    11,    12,
-      13,    14,    10,    16,     9,    -1,    11,    12,    13,    14,
-      -1,    19,    20,     5,     6,     7,     8,     9,    -1,    11,
-      12,    13,    14,    75,     7,     8,     9,    79,    11,    12,
-      13,    14,    84
+      24,    32,    26,    36,   114,     3,    18,    16,     0,    33,
+      11,   121,    24,    17,    36,    39,    47,    41,    18,    20,
+      21,    20,   132,    36,    23,    36,    16,    51,    27,    28,
+      16,    55,    31,     8,     9,    10,   146,    12,    13,    14,
+      15,    65,    66,    67,    68,    69,    70,    71,    72,    73,
+      74,   106,    76,    77,     7,     8,     5,    32,    33,    58,
+     115,    11,    86,    16,    19,    89,    11,   122,    11,   124,
+     103,     5,   127,   104,   129,    20,    21,    16,    36,    36,
+     135,    34,    35,    36,    11,   140,    11,    20,    36,    10,
+     145,    12,    13,    14,    15,   150,    20,     1,    21,    27,
+       4,     5,   126,    22,     8,    21,    23,   131,   137,    56,
+     109,    32,    33,    -1,   113,    19,    -1,    -1,   142,    -1,
+      24,    25,    26,    -1,    -1,   149,    30,     6,     7,     8,
+       9,    10,    36,    12,    13,    14,    15,     6,     7,     8,
+       9,    10,    21,    12,    13,    14,    15,    -1,    -1,    -1,
+      -1,    -1,    21,    32,    33,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    32,    33,     6,     7,     8,     9,    10,
+      -1,    12,    13,    14,    15,    -1,    17,    -1,     6,     7,
+       8,     9,    10,    -1,    12,    13,    14,    15,    -1,    -1,
+      -1,    32,    33,    21,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    32,    33,     6,     7,     8,     9,
+      10,    -1,    12,    13,    14,    15,    -1,    17,    -1,     6,
+       7,     8,     9,    10,    -1,    12,    13,    14,    15,    -1,
+      -1,    -1,    32,    33,    21,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    32,    33,     6,     7,     8,
+       9,    10,    -1,    12,    13,    14,    15,    -1,    17,     6,
+       7,     8,     9,    10,    -1,    12,    13,    14,    15,    -1,
+      17,    -1,    -1,    32,    33,     6,     7,     8,     9,    10,
+      -1,    12,    13,    14,    15,    32,    33,     6,     7,     8,
+       9,    10,    -1,    12,    13,    14,    15,    -1,    17,    -1,
+      -1,    32,    33,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    32,    33
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,    31,    15,     0,    16,    17,    32,    33,     4,
-      21,    22,    26,    29,    34,    29,    36,    38,    15,    40,
-      43,    47,     4,    10,    18,    10,    19,    20,    34,     6,
-      15,    28,    29,    39,    39,    34,    34,    15,    36,    39,
-      36,    39,    39,    10,     5,     6,     7,     8,     9,    11,
-      12,    13,    14,    20,    37,    16,    39,    34,    20,    16,
-      39,    39,    39,    39,    39,    39,    39,    39,    39,    39,
-      19,    41,    16,    35,    36,    47,    44,    34,    32,    47,
-      42,    32,    47,    45,    23,    46,    47,    32
+       0,     3,    38,    16,     0,    17,    18,    39,    40,     1,
+       4,     5,     8,    24,    25,    26,    30,    36,    41,    36,
+      46,    49,    36,    44,    48,    36,    16,    54,    58,    65,
+      16,    61,     5,    11,    19,    11,    20,    21,    41,     7,
+       8,    16,    34,    35,    36,    50,    11,    20,    21,    41,
+      50,    11,    50,    41,    41,    16,     5,    41,    44,    50,
+      46,    50,    36,    50,    36,    11,     6,     7,     8,     9,
+      10,    12,    13,    14,    15,    21,    32,    33,    47,    44,
+      21,    45,    50,    17,    50,    36,    48,    41,    21,    10,
+      17,    50,    50,    50,    50,    50,    50,    50,    50,    50,
+      50,    50,    50,    20,    20,    21,    55,    17,    50,    42,
+      50,    46,    44,    43,    65,    59,    62,    41,    17,    41,
+      39,    65,    21,    22,    56,    39,    65,    51,    65,    60,
+      50,    65,    27,    57,    65,    63,    50,    24,    39,    65,
+      52,    54,    21,    65,    50,    23,    17,    65,    39,    53,
+      64,    50,    65
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    30,    31,    33,    32,    34,    34,    35,    34,    34,
-      34,    34,    37,    36,    36,    36,    36,    38,    39,    39,
-      39,    39,    39,    39,    39,    39,    39,    39,    39,    39,
-      39,    39,    41,    42,    40,    44,    45,    43,    46,    46,
-      47
+       0,    37,    38,    40,    39,    41,    41,    41,    42,    41,
+      43,    41,    41,    41,    41,    41,    41,    45,    44,    44,
+      44,    44,    47,    46,    46,    46,    46,    48,    49,    50,
+      50,    50,    50,    50,    50,    50,    50,    50,    50,    50,
+      50,    50,    50,    50,    50,    50,    50,    51,    52,    53,
+      50,    55,    56,    54,    57,    57,    57,    59,    60,    58,
+      62,    63,    64,    61,    65
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     4,     0,     4,     3,     4,     0,     6,     3,
-       3,     0,     0,     5,     3,     2,     3,     2,     1,     1,
-       3,     3,     3,     3,     3,     2,     3,     3,     3,     3,
-       3,     3,     0,     0,     9,     0,     0,     9,     2,     0,
-       0
+       0,     2,     4,     0,     4,     3,     4,     3,     0,     6,
+       0,     7,     3,     3,     3,     1,     0,     0,     5,     3,
+       2,     3,     0,     5,     3,     2,     3,     2,     2,     1,
+       1,     3,     2,     2,     3,     3,     3,     3,     2,     3,
+       3,     3,     3,     3,     3,     3,     3,     0,     0,     0,
+      15,     0,     0,     9,     3,     2,     0,     0,     0,     9,
+       0,     0,     0,    16,     0
 };
 
 
@@ -1374,259 +1461,472 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 101 "syntaxe.y" /* yacc.c:1646  */
-    {toBIN();print_lines();}
-#line 1380 "y.tab.c" /* yacc.c:1646  */
+#line 119 "syntaxe.y" /* yacc.c:1646  */
+    {YYACCEPT;}
+#line 1467 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 103 "syntaxe.y" /* yacc.c:1646  */
+#line 123 "syntaxe.y" /* yacc.c:1646  */
     {portee++;}
-#line 1386 "y.tab.c" /* yacc.c:1646  */
+#line 1473 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 103 "syntaxe.y" /* yacc.c:1646  */
-    {printf("On pop\n");pop_main();portee --;}
-#line 1392 "y.tab.c" /* yacc.c:1646  */
+#line 123 "syntaxe.y" /* yacc.c:1646  */
+    {pop_main();portee --;}
+#line 1479 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 7:
-#line 107 "syntaxe.y" /* yacc.c:1646  */
-    {
+  case 8:
+#line 129 "syntaxe.y" /* yacc.c:1646  */
+    { // b = expr;
 																	int i = guete(jean_louis,(yyvsp[-3].stringValue),pointeur);
-																	add_line("LOAD",1,jean_louis[pointeur].addr,-1);
-																	add_line("STORE",jean_louis[i].addr,1,-1);
-																	addr = pop_unique(jean_louis,pointeur);
-																	pointeur--;
+																	if(jean_louis[i].typeparam == PTR){//si la var est un pointeur => on modif ce vers quoi on pointe 
+																		jean_louis[i].addr = (yyvsp[-1].intValue);
+																		addr = pop_unique(jean_louis,pointeur);
+																		pointeur--;
+																	}
+																	else{//sinon
+																		add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+																		add_line("STORE",jean_louis[i].addr,1,-1);
+																		addr = pop_unique(jean_louis,pointeur);
+																		pointeur--;
+																	}
 																}
-#line 1404 "y.tab.c" /* yacc.c:1646  */
+#line 1498 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 12:
-#line 121 "syntaxe.y" /* yacc.c:1646  */
-    {	
-														add_line("LOAD",1,jean_louis[pointeur].addr,-1);
-														add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
-														addr = pop_unique(jean_louis,pointeur);
-														pointeur--;
-													}
-#line 1415 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 14:
-#line 130 "syntaxe.y" /* yacc.c:1646  */
-    {	
-														add_line("LOAD",1,jean_louis[pointeur].addr,-1);
-														add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
-														addr = pop_unique(jean_louis,pointeur);
-														pointeur--;
-													}
-#line 1426 "y.tab.c" /* yacc.c:1646  */
+  case 10:
+#line 145 "syntaxe.y" /* yacc.c:1646  */
+    { //*b = expr;
+																		int i = guete(jean_louis,(yyvsp[-3].stringValue),pointeur);
+																		add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+																		add_line("STORE",jean_louis[i].addr,1,-1);
+																		addr = pop_unique(jean_louis,pointeur);
+																		pointeur--;
+																	}
+#line 1510 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 137 "syntaxe.y" /* yacc.c:1646  */
-    {
-											addr = ajout((yyvsp[-1].stringValue),INT,jean_louis,addr,portee,pointeur);
-											pointeur++;
-										}
-#line 1435 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 16:
-#line 141 "syntaxe.y" /* yacc.c:1646  */
-    {
-															addr = ajout((yyvsp[-2].stringValue),INT,jean_louis,addr,portee,pointeur);
-															pointeur++;
-														}
-#line 1444 "y.tab.c" /* yacc.c:1646  */
+#line 156 "syntaxe.y" /* yacc.c:1646  */
+    {printf("erreur idiot\n");}
+#line 1516 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 147 "syntaxe.y" /* yacc.c:1646  */
+#line 161 "syntaxe.y" /* yacc.c:1646  */
+    {	 //int b = expr, a = expr...
+														add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+														add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
+														addr = pop_unique(jean_louis,pointeur);
+														pointeur--;
+													}
+#line 1527 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 19:
+#line 170 "syntaxe.y" /* yacc.c:1646  */
+    {	//int b = expr;
+														add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+														add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
+														addr = pop_unique(jean_louis,pointeur);
+														pointeur--;
+													}
+#line 1538 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 20:
+#line 177 "syntaxe.y" /* yacc.c:1646  */
+    {	//int a;
+											addr = ajout((yyvsp[-1].stringValue),INT,jean_louis,addr,portee,pointeur);
+											pointeur++;
+										}
+#line 1547 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 21:
+#line 181 "syntaxe.y" /* yacc.c:1646  */
+    { //int a, b...
+															addr = ajout((yyvsp[-2].stringValue),INT,jean_louis,addr,portee,pointeur);
+															pointeur++;
+														}
+#line 1556 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 22:
+#line 187 "syntaxe.y" /* yacc.c:1646  */
+    {	
+																		jean_louis[pointeur-1].addr = (yyvsp[0].intValue);
+																		addr = pop_unique(jean_louis,pointeur);
+																		pointeur--;
+																	}
+#line 1566 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 24:
+#line 195 "syntaxe.y" /* yacc.c:1646  */
+    {	
+																jean_louis[pointeur-1].addr = (yyvsp[-1].intValue);
+																addr = pop_unique(jean_louis,pointeur);
+																pointeur--;
+															}
+#line 1576 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 25:
+#line 201 "syntaxe.y" /* yacc.c:1646  */
+    {
+											ajout((yyvsp[-1].stringValue),PTR,jean_louis,0,portee,pointeur);
+											pointeur++;
+										}
+#line 1585 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 26:
+#line 205 "syntaxe.y" /* yacc.c:1646  */
+    {
+																	ajout((yyvsp[-2].stringValue),PTR,jean_louis,0,portee,pointeur);
+																	pointeur++;
+																}
+#line 1594 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 27:
+#line 212 "syntaxe.y" /* yacc.c:1646  */
     {
 												addr = ajout((yyvsp[-1].stringValue),INT,jean_louis,addr,portee,pointeur);
 												pointeur++;										
 											}
-#line 1453 "y.tab.c" /* yacc.c:1646  */
+#line 1603 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 18:
-#line 153 "syntaxe.y" /* yacc.c:1646  */
+  case 28:
+#line 219 "syntaxe.y" /* yacc.c:1646  */
     {
+														ajout((yyvsp[-1].stringValue),PTR,jean_louis,0,portee,pointeur);
+														pointeur++;										
+													}
+#line 1612 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 29:
+#line 226 "syntaxe.y" /* yacc.c:1646  */
+    { //nom de var
 									var_temp();
 									int i = guete(jean_louis,(yyvsp[0].stringValue),pointeur);
 									add_line("LOAD",1,jean_louis[i].addr,-1);
 									add_line("STORE",jean_louis[pointeur].addr,1,-1);
 								}
-#line 1464 "y.tab.c" /* yacc.c:1646  */
+#line 1623 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 19:
-#line 159 "syntaxe.y" /* yacc.c:1646  */
-    {
+  case 30:
+#line 232 "syntaxe.y" /* yacc.c:1646  */
+    { //chiffres
 								var_temp();
 								add_line("AFC",1,(yyvsp[0].intValue),-1);
 								add_line("STORE",jean_louis[pointeur].addr,1,-1);
 							}
-#line 1474 "y.tab.c" /* yacc.c:1646  */
+#line 1633 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 20:
-#line 164 "syntaxe.y" /* yacc.c:1646  */
-    {
+  case 31:
+#line 237 "syntaxe.y" /* yacc.c:1646  */
+    { // a = expr
 													int i = guete(jean_louis,(yyvsp[-2].stringValue),pointeur);
 													add_line("LOAD",1,jean_louis[pointeur].addr,-1);
 													add_line("STORE",jean_louis[i].addr,1,-1);
 												}
-#line 1484 "y.tab.c" /* yacc.c:1646  */
+#line 1643 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 21:
-#line 169 "syntaxe.y" /* yacc.c:1646  */
+  case 32:
+#line 242 "syntaxe.y" /* yacc.c:1646  */
+    { // *b renvoit val addr dans b
+									var_temp();
+									int i = guete(jean_louis,(yyvsp[0].stringValue),pointeur);
+									add_line("LOAD",1,jean_louis[i].addr,-1);
+									add_line("STORE",jean_louis[pointeur].addr,1,-1);
+								}
+#line 1654 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 33:
+#line 248 "syntaxe.y" /* yacc.c:1646  */
+    { // &a revoit addr de a
+									var_temp();
+									int i = guete(jean_louis,(yyvsp[0].stringValue),pointeur);
+									(yyval.intValue) = jean_louis[i].addr;
+								}
+#line 1664 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 34:
+#line 253 "syntaxe.y" /* yacc.c:1646  */
     {operation(ADD);}
-#line 1490 "y.tab.c" /* yacc.c:1646  */
+#line 1670 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 22:
-#line 170 "syntaxe.y" /* yacc.c:1646  */
+  case 35:
+#line 254 "syntaxe.y" /* yacc.c:1646  */
     {operation(SOU);}
-#line 1496 "y.tab.c" /* yacc.c:1646  */
+#line 1676 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 23:
-#line 171 "syntaxe.y" /* yacc.c:1646  */
+  case 36:
+#line 255 "syntaxe.y" /* yacc.c:1646  */
     {operation(MUL);}
-#line 1502 "y.tab.c" /* yacc.c:1646  */
+#line 1682 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 24:
-#line 172 "syntaxe.y" /* yacc.c:1646  */
+  case 37:
+#line 256 "syntaxe.y" /* yacc.c:1646  */
     {operation(DIV);}
-#line 1508 "y.tab.c" /* yacc.c:1646  */
+#line 1688 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 25:
-#line 173 "syntaxe.y" /* yacc.c:1646  */
-    {
+  case 38:
+#line 257 "syntaxe.y" /* yacc.c:1646  */
+    { // -expr
 												add_line("AFC",1,0,-1);
 												add_line("LOAD",2,jean_louis[pointeur].addr,-1);
 												add_line("SOU",1,2,-1);
 												add_line("STORE",jean_louis[pointeur].addr,1,-1);
 											}
-#line 1519 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 27:
-#line 180 "syntaxe.y" /* yacc.c:1646  */
-    {operation(DOUBLE_EQU);}
-#line 1525 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 28:
-#line 181 "syntaxe.y" /* yacc.c:1646  */
-    {operation(INF);}
-#line 1531 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 29:
-#line 182 "syntaxe.y" /* yacc.c:1646  */
-    {operation(INFE);}
-#line 1537 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 30:
-#line 183 "syntaxe.y" /* yacc.c:1646  */
-    {operation(SUP);}
-#line 1543 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 31:
-#line 184 "syntaxe.y" /* yacc.c:1646  */
-    {operation(SUPE);}
-#line 1549 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 32:
-#line 187 "syntaxe.y" /* yacc.c:1646  */
-    {
-														add_line("LOAD",0,jean_louis[pointeur].addr,-1);
-														//on fait un jump conditionel vers le else
-														add_line("JCVD",99,0,-1);
-													}
-#line 1559 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 33:
-#line 192 "syntaxe.y" /* yacc.c:1646  */
-    {add_line("JMP",99,-1,-1);}
-#line 1565 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 34:
-#line 193 "syntaxe.y" /* yacc.c:1646  */
-    {
-																	if((yyvsp[0].intValue)){
-																	//si else on patch le JMP endif vers la fin du else et le JCVD before if vers le patch_line avant le else
-																	patch_line((yyvsp[-1].intValue),"JMP",line+1,0,-1);
-																	patch_line((yyvsp[-4].intValue),"JCVD",(yyvsp[-1].intValue)+1,0,-1);
-																	}
-																	else{
-																		//sinon on del le JMP a la fin du else et on patch le JCVD vers le dernier patch_line
-																		rm_line_last();
-																		patch_line((yyvsp[-4].intValue),"JCVD",line,0,-1);
-																	}
-																}
-#line 1582 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 35:
-#line 207 "syntaxe.y" /* yacc.c:1646  */
-    {
-																					add_line("LOAD",0,jean_louis[pointeur].addr,-1);
-																					//on fait un jump conditionel vers la fin du while
-																					add_line("JCVD",99,0,-1);
-																				}
-#line 1592 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 36:
-#line 212 "syntaxe.y" /* yacc.c:1646  */
-    {add_line("JMP",99,-1,-1);}
-#line 1598 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 37:
-#line 213 "syntaxe.y" /* yacc.c:1646  */
-    {
-												//on patch le JCVD poste while vers la ligne apres le corps et le JMP de fin de while vers la ligne au dessus de la condition pour pouvoir la reevaluer
-												patch_line((yyvsp[0].intValue),"JMP",(yyvsp[-8].intValue)+1,0,-1);
-												patch_line((yyvsp[-3].intValue),"JCVD",(yyvsp[0].intValue)+1,0,-1);
-											}
-#line 1608 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 38:
-#line 221 "syntaxe.y" /* yacc.c:1646  */
-    {(yyval.intValue) = 1;}
-#line 1614 "y.tab.c" /* yacc.c:1646  */
+#line 1699 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 222 "syntaxe.y" /* yacc.c:1646  */
-    {(yyval.intValue) = 0;}
-#line 1620 "y.tab.c" /* yacc.c:1646  */
+#line 263 "syntaxe.y" /* yacc.c:1646  */
+    {(yyval.intValue) = (yyvsp[-1].intValue);}
+#line 1705 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 225 "syntaxe.y" /* yacc.c:1646  */
+#line 264 "syntaxe.y" /* yacc.c:1646  */
+    {operation(DOUBLE_EQU);}
+#line 1711 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 41:
+#line 265 "syntaxe.y" /* yacc.c:1646  */
+    {operation(INF);}
+#line 1717 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 42:
+#line 266 "syntaxe.y" /* yacc.c:1646  */
+    {operation(INFE);}
+#line 1723 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 43:
+#line 267 "syntaxe.y" /* yacc.c:1646  */
+    {operation(SUP);}
+#line 1729 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 44:
+#line 268 "syntaxe.y" /* yacc.c:1646  */
+    {operation(SUPE);}
+#line 1735 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 45:
+#line 269 "syntaxe.y" /* yacc.c:1646  */
+    {	 //expr && expr
+											add_line("LOAD",1,jean_louis[pointeur-1].addr,-1);
+											add_line("LOAD",2,jean_louis[pointeur].addr,-1);	
+											add_line("AFC",3,1,-1);//R3 = 1
+											add_line("EQU",1,3,-1);//R1 = (R1 == 1)
+											add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
+											add_line("EQU",2,3,-1);//R2 = (R2 == 1)
+											add_line("STORE",jean_louis[pointeur].addr,2,-1);
+											operation(AND);
+										}
+#line 1750 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 46:
+#line 279 "syntaxe.y" /* yacc.c:1646  */
+    {	 //expr || expr
+											add_line("LOAD",1,jean_louis[pointeur-1].addr,-1);
+											add_line("LOAD",2,jean_louis[pointeur].addr,-1);	
+											add_line("AFC",3,1,-1);//R3 = 1
+											add_line("EQU",1,3,-1);//R1 = (R1 == 1)
+											add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
+											add_line("EQU",2,3,-1);//R2 = (R2 == 1)
+											add_line("STORE",jean_louis[pointeur].addr,2,-1);
+											operation(OR);
+										}
+#line 1765 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 47:
+#line 289 "syntaxe.y" /* yacc.c:1646  */
+    { //ternary expression
+	 																			//on fait un jump conditionel vers la partie apres les 2 pts
+	 																			operation(DOUBLE_EQU);
+	 																			add_line("LOAD",0,jean_louis[pointeur].addr,-1);
+	 																			add_line("JCMP",99,0,-1);
+	 																			addr = pop_unique(jean_louis,pointeur);
+	 																			pointeur--;
+	 																		}
+#line 1778 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 48:
+#line 297 "syntaxe.y" /* yacc.c:1646  */
+    {add_line("JMP",99,-1,-1);}
+#line 1784 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 49:
+#line 298 "syntaxe.y" /* yacc.c:1646  */
+    {addr = pop_unique(jean_louis,pointeur);pointeur--;}
+#line 1790 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 50:
+#line 298 "syntaxe.y" /* yacc.c:1646  */
+    {
+																																													patch_line((yyvsp[-4].intValue),"JMP",line,0,-1);
+																																													patch_line((yyvsp[-7].intValue),"JCMP",(yyvsp[-2].intValue)+1,0,-1);
+																																												}
+#line 1799 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 51:
+#line 304 "syntaxe.y" /* yacc.c:1646  */
+    {
+														add_line("LOAD",0,jean_louis[pointeur].addr,-1);
+														//on fait un jump conditionel vers le else
+														add_line("JCMP",99,0,-1);
+														addr = pop_unique(jean_louis,pointeur);
+														pointeur--;
+													}
+#line 1811 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 52:
+#line 311 "syntaxe.y" /* yacc.c:1646  */
+    {add_line("JMP",99,-1,-1);}
+#line 1817 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 53:
+#line 312 "syntaxe.y" /* yacc.c:1646  */
+    {
+																	if((yyvsp[0].intValue)){
+																	//si else on patch le JMP endif vers la fin du else et le JCMP before if vers le patch_line avant le else
+																	patch_line((yyvsp[-1].intValue),"JMP",line,0,-1);
+																	patch_line((yyvsp[-4].intValue),"JCMP",(yyvsp[-1].intValue)+1,0,-1);
+																	}
+																	else{
+																		//sinon on del le JMP a la fin du else et on patch le JCMP vers le dernier patch_line
+																		rm_line_last();
+																		patch_line((yyvsp[-4].intValue),"JCMP",line,0,-1);
+																	}
+																}
+#line 1834 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 54:
+#line 326 "syntaxe.y" /* yacc.c:1646  */
+    {(yyval.intValue) = 1;}
+#line 1840 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 55:
+#line 327 "syntaxe.y" /* yacc.c:1646  */
+    {(yyval.intValue) = 1;}
+#line 1846 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 56:
+#line 328 "syntaxe.y" /* yacc.c:1646  */
+    {(yyval.intValue) = 0;}
+#line 1852 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 57:
+#line 331 "syntaxe.y" /* yacc.c:1646  */
+    {
+																					add_line("LOAD",0,jean_louis[pointeur].addr,-1);
+																					//on fait un jump conditionel vers la fin du while
+																					add_line("JCMP",99,0,-1);
+																					addr = pop_unique(jean_louis,pointeur);
+																					pointeur--;
+																				}
+#line 1864 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 58:
+#line 338 "syntaxe.y" /* yacc.c:1646  */
+    {add_line("JMP",99,-1,-1);}
+#line 1870 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 59:
+#line 339 "syntaxe.y" /* yacc.c:1646  */
+    {
+												//on patch le JCMP post while vers la ligne apres le corps et le JMP de fin de while vers la ligne au dessus de la condition pour pouvoir la reevaluer
+												patch_line((yyvsp[0].intValue),"JMP",(yyvsp[-8].intValue)+1,0,-1);
+												patch_line((yyvsp[-3].intValue),"JCMP",(yyvsp[0].intValue)+1,0,-1);
+											}
+#line 1880 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 60:
+#line 347 "syntaxe.y" /* yacc.c:1646  */
+    {
+															//creation du int temporaire
+															add_line("LOAD",1,jean_louis[pointeur].addr,-1);
+															add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
+															addr = pop_unique(jean_louis,pointeur);
+															pointeur--;			
+														}
+#line 1892 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 61:
+#line 354 "syntaxe.y" /* yacc.c:1646  */
+    { 
+													 		add_line("LOAD",0,jean_louis[pointeur].addr,-1);
+															//on fait un jump conditionel vers la fin du for
+															add_line("JCMP",99,0,-1);
+															addr = pop_unique(jean_louis,pointeur);
+															pointeur--;
+													 }
+#line 1904 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 62:
+#line 361 "syntaxe.y" /* yacc.c:1646  */
+    {add_line("JMP",99,-1,-1);}
+#line 1910 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 63:
+#line 362 "syntaxe.y" /* yacc.c:1646  */
+    {
+												//on patch le JCMP post for vers la ligne apres le corps et le JMP de fin de for vers la ligne au dessus de la condition pour pouvoir la reevaluer
+												patch_line((yyvsp[0].intValue),"JMP",(yyvsp[-9].intValue)+1,0,-1);
+												patch_line((yyvsp[-6].intValue),"JCMP",(yyvsp[0].intValue)+1,0,-1);
+											}
+#line 1920 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 64:
+#line 370 "syntaxe.y" /* yacc.c:1646  */
     {(yyval.intValue) = line-1;}
-#line 1626 "y.tab.c" /* yacc.c:1646  */
+#line 1926 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1630 "y.tab.c" /* yacc.c:1646  */
+#line 1930 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1854,7 +2154,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 228 "syntaxe.y" /* yacc.c:1906  */
+#line 373 "syntaxe.y" /* yacc.c:1906  */
 
 
 void yyerror(char *msg) {
@@ -1863,11 +2163,12 @@ void yyerror(char *msg) {
 }
 
 
-
 ////////////////////////////////////////////////////////////////////////
 
+//Affichage des lignes d'assembleur
 void print_lines(){
 	for(int i = 0; i < line; i++){
+		printf("%d: ",i);
 		if(strcmp(ASM[i].id,"LOAD")==0){
 			printf("%s R%d @%d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
 		}
@@ -1875,10 +2176,12 @@ void print_lines(){
 		else if(strcmp(ASM[i].id,"STORE")==0){
 			printf("%s @%d R%d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
 		}
-		else if(strcmp(ASM[i].id,"JCVD")==0){
+		else if(strcmp(ASM[i].id,"JCMP")==0){
 			printf("%s @%d R%d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
 		}
-		
+		else if(strcmp(ASM[i].id,"JMP")==0){
+			printf("%s @%d\n", ASM[i].id,ASM[i].val1);
+		}
 		else if(strcmp(ASM[i].id,"AFC")==0){
 			printf("%s R%d %d\n", ASM[i].id,ASM[i].val1,ASM[i].val2);
 		}
@@ -1888,6 +2191,8 @@ void print_lines(){
 	}	
 		
 }
+
+//Ajout ligne assembleur
 void add_line(char *id,int v1, int v2, int v3){
 	int val3 = 0;
 	if(v3 != -1) val3 = v3;
@@ -1896,6 +2201,7 @@ void add_line(char *id,int v1, int v2, int v3){
 	line ++;
 }
 
+//Patch ligne assembleur
 void patch_line(int l,char* id,int v1,int v2,int v3){
 	int val3 = 0;
 	if(v3 != -1) val3 = v3;
@@ -1903,16 +2209,19 @@ void patch_line(int l,char* id,int v1,int v2,int v3){
 	ASM[l] = tmp;
 }
 
+//Suppr derniere ligne assembleur
 void rm_line_last(){
 	ASM[line] = ASM[line+1];
 	line--;
 }
 
+//Creation d'une variable temporaire
 void var_temp(){ 
 	addr = ajout("temp",INT,jean_louis,addr,portee,pointeur);
 	pointeur++;
 }
 
+//Operations assembleur
 void operation(type_op param){
 	add_line("LOAD",1,jean_louis[pointeur-1].addr,-1);
 	add_line("LOAD",2,jean_louis[pointeur].addr,-1);	
@@ -1947,12 +2256,21 @@ void operation(type_op param){
 		case(SUPE):
 			add_line("SUPE",1,2,-1);
 			break;
+		case(AND):
+			add_line("EQU",1,2,-1);//R1 = (R1 == R2)
+			break;
+		case(OR):
+			add_line("AFC",3,1,-1);//R3 = 1
+			add_line("ADD",1,2,-1);//R1 = R1 + R2
+			add_line("SUPE",1,3,-1);//R1 = (R1 >= 1)
+			break;
 	}
 	add_line("STORE",jean_louis[pointeur-1].addr,1,-1);
 	addr = pop_unique(jean_louis,pointeur);
 	pointeur--;
 }
 
+//depop toutes les var de meme portee
 void pop_main(){
 	pointeur = pop(jean_louis, pointeur, portee);
 	
@@ -1968,6 +2286,7 @@ void pop_main(){
 	addr = jean_louis[pointeur].addr + tmp;
 }
 
+//Transforme le tableau d'assembleur en un fichier binaire
 void toBIN(){
 	FILE* fichier = NULL;
 	remove("sortie.banane");
@@ -1977,7 +2296,7 @@ void toBIN(){
     {
 		int8_t * tmp = malloc(sizeof(char));
 		for(int i = 0; i < line; i++){
-			if(strcmp(ASM[i].id, "STORE") == 0 || strcmp(ASM[i].id, "LOAD") == 0 || strcmp(ASM[i].id, "JMP") == 0 || strcmp(ASM[i].id, "JCVD") == 0){
+			if(strcmp(ASM[i].id, "STORE") == 0 || strcmp(ASM[i].id, "LOAD") == 0 || strcmp(ASM[i].id, "JMP") == 0 || strcmp(ASM[i].id, "JCMP") == 0){
 				if(strcmp(ASM[i].id, "LOAD") == 0){
 				*tmp=7;
 				fwrite(tmp,sizeof(int8_t), 1, fichier);
@@ -2017,7 +2336,7 @@ void toBIN(){
 					*tmp = (int8_t) (ASM[i].val1>>8);
 					fwrite(tmp,sizeof(int8_t), 1, fichier);
 				}
-				if(strcmp(ASM[i].id, "JCVD") == 0){
+				if(strcmp(ASM[i].id, "JCMP") == 0){
 					*tmp=15;
 					fwrite(tmp,sizeof(int8_t), 1, fichier);
 
@@ -2096,26 +2415,25 @@ void toBIN(){
     }
     else
     {
-        // On affiche un message d'erreur si on veut
+        // On affiche un message d'erreur
         printf("Impossible d'ouvrir le fichier sortie.banane");
     }
 }
 ////////////////////////////////////////////////////////////////////////
 
-
-
 int main() {
-	pointeur = -1;
-	portee = 0;
-	addr = 0;
-	line = 0;
+	pointeur = -1; //derniere var
+	portee = 0; //portee actuelle
+	addr = 0; //addr prochaine var
+	line = 0; //ligne prochaine instr
 	
-
-	printf("      === Flex et yacc compilator ===     \n");
+	printf("      === Flex et Yacc compilator ===\n");
 	printf("   ***Auteurs: Bravais J. et Wowk T.***\n");
-						
-
-	yyparse();
+	yyparse(); //Parsing
+	print_lines(); 
+	toBIN();
+	printf("      	=== FIN DE COMPILATION ===\n");	
+	printf("***python Interpret.py pour l'interpreteur***\n");
 	return 1;
 }
 

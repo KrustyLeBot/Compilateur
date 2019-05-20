@@ -1,6 +1,7 @@
 typedef enum type {
 	INT,
 	CHAR,
+	PTR,
 }type;
 
 

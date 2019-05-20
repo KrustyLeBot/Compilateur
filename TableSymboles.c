@@ -1,10 +1,6 @@
 #include "TableSymboles.h"
 #include <string.h>
 
-
-
-
-
 int pop(struct element* tab, int pt_pas_pt, int portee){
 
 	int porteelocale = portee;
@@ -17,6 +13,7 @@ int pop(struct element* tab, int pt_pas_pt, int portee){
 
 int pop_unique(struct element* tab, int pt_pas_pt){
 	int addr = tab[pt_pas_pt].addr;	
+	printf("pop nom:%s portee:%d\n",tab[pt_pas_pt].nom,tab[pt_pas_pt].portee);
 	return addr;
 }
 
@@ -50,7 +47,6 @@ int ajout(char *nom,type typeparam,struct element *tab,int addr,int portee,int p
 		case INT:
 			addr += 4;
 			break;
-	
 	}
 	return addr;
 }

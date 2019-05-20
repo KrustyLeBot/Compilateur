@@ -78,9 +78,6 @@ pointeur = 0
 
 
 while (pointeur < len(liste_instr)):
-	print(liste_instr[pointeur][0])
-	print("A: " + str(tab_memory[0]))
-	print("B: " + str(tab_memory[4]))
 	if (liste_instr[pointeur][0] == "ADD"): #ADD
 		R1 = liste_instr[pointeur][1]
 		R2 = liste_instr[pointeur][2]
@@ -106,7 +103,6 @@ while (pointeur < len(liste_instr)):
 		R1 = liste_instr[pointeur][1]
 		j = liste_instr[pointeur][2]
 		register[R1] = j
-		print(register)
 
 	if (liste_instr[pointeur][0] == "LOAD"): #LOAD
 		R1 = liste_instr[pointeur][1]
@@ -131,8 +127,8 @@ while (pointeur < len(liste_instr)):
 	if(liste_instr[pointeur][0] == "EQU"): #EQU
 		R1 = liste_instr[pointeur][1]
 		R2 = liste_instr[pointeur][2]
-		print(R1)
-		print(R2)
+		print("R1: " + str(register[R1]))
+		print("R2: " + str(register[R2]))
 		if (register[R1] == register[R2]):
 			register[R1] = 1
 		else:
@@ -184,9 +180,14 @@ while (pointeur < len(liste_instr)):
 	if(liste_instr[pointeur][0] == "END_FILE"): #END OF FILE
 		break
 
-	#print(liste_instr[pointeur][0] + " " + str(liste_instr[pointeur][1]) + " " + str(liste_instr[pointeur][2]) + " " + str(liste_instr[pointeur][3]))
+	print(liste_instr[pointeur][0] + " " + str(liste_instr[pointeur][1]) + " " + str(liste_instr[pointeur][2]) + " " + str(liste_instr[pointeur][3]))
 	pointeur += 1
+	print(register)
+	print(register[R1])
 
-print(tab_memory[0])
+print("@0: " + str(tab_memory[0]))
+print("@4: " + str(tab_memory[4]))
+print("@8: " + str(tab_memory[8]))
+print("@12: " + str(tab_memory[12]))
 
 

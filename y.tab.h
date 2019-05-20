@@ -46,74 +46,88 @@ extern int yydebug;
   enum yytokentype
   {
     tMAIN = 258,
-    tINT = 259,
-    tPLUS = 260,
-    tMOINS = 261,
-    tSTAR = 262,
-    tSLASH = 263,
-    tDEQU = 264,
-    tEQU = 265,
-    tINF = 266,
-    tSUP = 267,
-    tINFE = 268,
-    tSUPE = 269,
-    tPARL = 270,
-    tPARR = 271,
-    tBRL = 272,
-    tBRR = 273,
-    tVIR = 274,
-    tPVR = 275,
-    tIF = 276,
-    tWHILE = 277,
-    tELSE = 278,
-    tTRUE = 279,
-    tFALSE = 280,
-    tCONST = 281,
-    tPRINTF = 282,
-    tNB = 283,
-    tID = 284
+    tINTSTAR = 259,
+    tINT = 260,
+    tPLUS = 261,
+    tMOINS = 262,
+    tSTAR = 263,
+    tSLASH = 264,
+    tDEQU = 265,
+    tEQU = 266,
+    tINF = 267,
+    tSUP = 268,
+    tINFE = 269,
+    tSUPE = 270,
+    tPARL = 271,
+    tPARR = 272,
+    tBRL = 273,
+    tBRR = 274,
+    tVIR = 275,
+    tPVR = 276,
+    tQM = 277,
+    tDP = 278,
+    tIF = 279,
+    tWHILE = 280,
+    tFOR = 281,
+    tELSE = 282,
+    tTRUE = 283,
+    tFALSE = 284,
+    tCONST = 285,
+    tPRINTF = 286,
+    tAND = 287,
+    tOR = 288,
+    tESPER = 289,
+    tNB = 290,
+    tID = 291
   };
 #endif
 /* Tokens.  */
 #define tMAIN 258
-#define tINT 259
-#define tPLUS 260
-#define tMOINS 261
-#define tSTAR 262
-#define tSLASH 263
-#define tDEQU 264
-#define tEQU 265
-#define tINF 266
-#define tSUP 267
-#define tINFE 268
-#define tSUPE 269
-#define tPARL 270
-#define tPARR 271
-#define tBRL 272
-#define tBRR 273
-#define tVIR 274
-#define tPVR 275
-#define tIF 276
-#define tWHILE 277
-#define tELSE 278
-#define tTRUE 279
-#define tFALSE 280
-#define tCONST 281
-#define tPRINTF 282
-#define tNB 283
-#define tID 284
+#define tINTSTAR 259
+#define tINT 260
+#define tPLUS 261
+#define tMOINS 262
+#define tSTAR 263
+#define tSLASH 264
+#define tDEQU 265
+#define tEQU 266
+#define tINF 267
+#define tSUP 268
+#define tINFE 269
+#define tSUPE 270
+#define tPARL 271
+#define tPARR 272
+#define tBRL 273
+#define tBRR 274
+#define tVIR 275
+#define tPVR 276
+#define tQM 277
+#define tDP 278
+#define tIF 279
+#define tWHILE 280
+#define tFOR 281
+#define tELSE 282
+#define tTRUE 283
+#define tFALSE 284
+#define tCONST 285
+#define tPRINTF 286
+#define tAND 287
+#define tOR 288
+#define tESPER 289
+#define tNB 290
+#define tID 291
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 
 union YYSTYPE
 {
-#line 54 "syntaxe.y" /* yacc.c:1909  */
+#line 61 "syntaxe.y" /* yacc.c:1909  */
 
 	int intValue;
 	char *stringValue;
 
-#line 117 "y.tab.h" /* yacc.c:1909  */
+#line 131 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
