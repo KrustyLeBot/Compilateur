@@ -41,5 +41,6 @@
 "||" return tOR;
 "&" return tESPER;
 "balkany" printf("Je suis l'homme le plus honnete du monde\n");
+"return" return tRETURN;
 [0-9]+  {yylval.intValue = atoi(yytext); return tNB;}
 [A-Za-z][A-Za-z0-9_]* {yylval.stringValue = strdup(yytext); return tID;}
