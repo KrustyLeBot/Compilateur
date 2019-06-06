@@ -1,0 +1,2 @@
+vhdl isim_temp "Pipeline.vhd"
+vhdl isim_temp "Pipeline_test_bench.vhd"

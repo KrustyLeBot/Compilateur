@@ -1,0 +1,47 @@
+Running: /usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/bin/lin64/unwrapped/fuse -relaunch -intstyle "ise" -incremental -lib "secureip" -o "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/CPU_tb_isim_beh.exe" -prj "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/CPU_tb_beh.prj" "work.CPU_tb" 
+ISim O.87xd (signature 0x8ddf5b5d)
+Number of CPUs detected in this system: 4
+Turning on mult-threading, number of parallel sub-compilation jobs: 8 
+Determining compilation order of HDL files
+Parsing VHDL file "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/common.vhd" into library work
+Parsing VHDL file "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/Pipeline.vhd" into library work
+Parsing VHDL file "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/MUX_Sortie_Memoire.vhd" into library work
+Parsing VHDL file "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/MUX_entree_memoire.vhd" into library work
+Parsing VHDL file "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/MUX_banc_registres.vhd" into library work
+Parsing VHDL file "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/MUX_ALU.vhd" into library work
+Parsing VHDL file "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/instr_memory.vhd" into library work
+Parsing VHDL file "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/data_memory.vhd" into library work
+Parsing VHDL file "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/Banc_registres.vhd" into library work
+Parsing VHDL file "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/ALU.vhd" into library work
+Parsing VHDL file "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/CPU.vhd" into library work
+Parsing VHDL file "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/CPU_tb.vhd" into library work
+Starting static elaboration
+Completed static elaboration
+Fuse Memory Usage: 99044 KB
+Fuse CPU Usage: 1010 ms
+Compiling package standard
+Compiling package std_logic_1164
+Compiling package numeric_std
+Compiling package textio
+Compiling package std_logic_textio
+Compiling package common
+Compiling package std_logic_arith
+Compiling package std_logic_unsigned
+Compiling architecture beh of entity instr_memory [\instr_memory(16,32)\]
+Compiling architecture behavioral of entity Pipeline [pipeline_default]
+Compiling architecture behavioral of entity MUX_banc_registres [mux_banc_registres_default]
+Compiling architecture behavioral of entity MUX_ALU [mux_alu_default]
+Compiling architecture behavioral of entity MUX_entree_memoire [mux_entree_memoire_default]
+Compiling architecture behavioral of entity MUX_Sortie_Memoire [mux_sortie_memoire_default]
+Compiling architecture behavioral of entity Banc_registres [banc_registres_default]
+Compiling architecture behavioral of entity ALU [alu_default]
+Compiling architecture behavioral of entity data_memory [data_memory_default]
+Compiling architecture behavioral of entity CPU [cpu_default]
+Compiling architecture behavior of entity cpu_tb
+Time Resolution for simulation is 1ps.
+Waiting for 1 sub-compilation(s) to finish...
+Compiled 29 VHDL Units
+Built simulation executable /home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/CPU_tb_isim_beh.exe
+Fuse Memory Usage: 681220 KB
+Fuse CPU Usage: 1410 ms
+GCC CPU Usage: 160 ms

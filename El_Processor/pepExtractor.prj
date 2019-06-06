@@ -1,0 +1,5 @@
+work	"Banc_registres.vhd"
+work	"CPU.vhd"
+work	"Pipeline.vhd"
+work	"common.vhd"
+work	"instr_memory.vhd"

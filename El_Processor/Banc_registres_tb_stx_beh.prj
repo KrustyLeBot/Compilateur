@@ -1,0 +1,2 @@
+vhdl isim_temp "Banc_registres.vhd"
+vhdl isim_temp "Banc_registres_tb.vhd"

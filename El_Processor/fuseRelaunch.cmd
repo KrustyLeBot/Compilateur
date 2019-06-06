@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "secureip" -o "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/CPU_tb_isim_beh.exe" -prj "/home/wowk/Documents/TP_automates_langages/El_Compilator/El_Processor/CPU_tb_beh.prj" "work.CPU_tb" 
