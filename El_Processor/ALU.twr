@@ -1,0 +1,255 @@
+--------------------------------------------------------------------------------
+Release 13.4 Trace  (lin64)
+Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
+
+/usr/local/insa/Xilinx.ISE/13.4/ISE_DS/ISE/bin/lin64/unwrapped/trce -intstyle
+ise -v 3 -s 3 -n 3 -fastpaths -xml ALU.twx ALU.ncd -o ALU.twr ALU.pcf
+
+Design file:              ALU.ncd
+Physical constraint file: ALU.pcf
+Device,package,speed:     xc6slx16,csg324,C,-3 (PRODUCTION 1.21 2012-01-07)
+Report level:             verbose report
+
+Environment Variable      Effect 
+--------------------      ------ 
+NONE                      No environment variables were set
+--------------------------------------------------------------------------------
+
+INFO:Timing:2698 - No timing constraints found, doing default enumeration.
+INFO:Timing:3412 - To improve timing, see the Timing Closure User Guide (UG612).
+INFO:Timing:2752 - To get complete path coverage, use the unconstrained paths 
+   option. All paths that are not constrained will be reported in the 
+   unconstrained paths section(s) of the report.
+INFO:Timing:3339 - The clock-to-out numbers in this timing report are based on 
+   a 50 Ohm transmission line loading model.  For the details of this model, 
+   and for more information on accounting for different loading conditions, 
+   please see the device datasheet.
+
+
+
+Data Sheet report:
+-----------------
+All values displayed in nanoseconds (ns)
+
+Setup/Hold to clock OP<0>
+------------+------------+------------+------------+------------+------------------+--------+
+            |Max Setup to|  Process   |Max Hold to |  Process   |                  | Clock  |
+Source      | clk (edge) |   Corner   | clk (edge) |   Corner   |Internal Clock(s) | Phase  |
+------------+------------+------------+------------+------------+------------------+--------+
+A<0>        |    5.199(F)|      SLOW  |   -0.551(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<1>        |    5.263(F)|      SLOW  |   -0.695(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<2>        |    5.348(F)|      SLOW  |   -0.744(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<3>        |    5.222(F)|      SLOW  |   -0.558(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<4>        |    5.285(F)|      SLOW  |   -0.866(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<5>        |    5.308(F)|      SLOW  |   -0.961(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<6>        |    5.281(F)|      SLOW  |   -0.882(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<7>        |    5.274(F)|      SLOW  |   -0.869(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<0>        |    4.684(F)|      SLOW  |   -0.824(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<1>        |    5.090(F)|      SLOW  |   -1.113(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<2>        |    5.020(F)|      SLOW  |   -1.080(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<3>        |    5.139(F)|      SLOW  |   -1.118(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<4>        |    5.006(F)|      SLOW  |   -1.289(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<5>        |    5.551(F)|      SLOW  |   -1.236(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<6>        |    4.996(F)|      SLOW  |   -1.239(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<7>        |    5.345(F)|      SLOW  |   -1.374(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+------------+------------+------------+------------+------------+------------------+--------+
+
+Setup/Hold to clock OP<1>
+------------+------------+------------+------------+------------+------------------+--------+
+            |Max Setup to|  Process   |Max Hold to |  Process   |                  | Clock  |
+Source      | clk (edge) |   Corner   | clk (edge) |   Corner   |Internal Clock(s) | Phase  |
+------------+------------+------------+------------+------------+------------------+--------+
+A<0>        |    4.653(F)|      SLOW  |    0.023(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<1>        |    4.717(F)|      SLOW  |   -0.121(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<2>        |    4.802(F)|      SLOW  |   -0.190(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<3>        |    4.676(F)|      SLOW  |    0.016(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<4>        |    4.739(F)|      SLOW  |   -0.348(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<5>        |    4.762(F)|      SLOW  |   -0.499(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<6>        |    4.735(F)|      SLOW  |   -0.384(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<7>        |    4.728(F)|      SLOW  |   -0.341(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<0>        |    4.138(F)|      SLOW  |   -0.391(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<1>        |    4.544(F)|      SLOW  |   -0.709(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<2>        |    4.474(F)|      SLOW  |   -0.613(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<3>        |    4.593(F)|      SLOW  |   -0.708(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<4>        |    4.460(F)|      SLOW  |   -0.939(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<5>        |    5.005(F)|      SLOW  |   -0.852(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<6>        |    4.450(F)|      SLOW  |   -0.838(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<7>        |    4.799(F)|      SLOW  |   -1.029(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+------------+------------+------------+------------+------------+------------------+--------+
+
+Setup/Hold to clock OP<2>
+------------+------------+------------+------------+------------+------------------+--------+
+            |Max Setup to|  Process   |Max Hold to |  Process   |                  | Clock  |
+Source      | clk (edge) |   Corner   | clk (edge) |   Corner   |Internal Clock(s) | Phase  |
+------------+------------+------------+------------+------------+------------------+--------+
+A<0>        |    5.391(F)|      SLOW  |   -0.752(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<1>        |    5.455(F)|      SLOW  |   -0.872(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<2>        |    5.540(F)|      SLOW  |   -0.906(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<3>        |    5.414(F)|      SLOW  |   -0.734(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<4>        |    5.477(F)|      SLOW  |   -1.028(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<5>        |    5.500(F)|      SLOW  |   -1.123(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<6>        |    5.473(F)|      SLOW  |   -1.044(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<7>        |    5.466(F)|      SLOW  |   -1.031(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<0>        |    4.876(F)|      SLOW  |   -0.986(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<1>        |    5.282(F)|      SLOW  |   -1.275(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<2>        |    5.212(F)|      SLOW  |   -1.242(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<3>        |    5.331(F)|      SLOW  |   -1.280(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<4>        |    5.198(F)|      SLOW  |   -1.451(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<5>        |    5.743(F)|      SLOW  |   -1.398(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<6>        |    5.188(F)|      SLOW  |   -1.401(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<7>        |    5.537(F)|      SLOW  |   -1.536(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+------------+------------+------------+------------+------------+------------------+--------+
+
+Setup/Hold to clock OP<3>
+------------+------------+------------+------------+------------+------------------+--------+
+            |Max Setup to|  Process   |Max Hold to |  Process   |                  | Clock  |
+Source      | clk (edge) |   Corner   | clk (edge) |   Corner   |Internal Clock(s) | Phase  |
+------------+------------+------------+------------+------------+------------------+--------+
+A<0>        |    5.363(F)|      SLOW  |   -0.724(F)|      SLOW  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<1>        |    5.427(F)|      SLOW  |   -0.851(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<2>        |    5.512(F)|      SLOW  |   -0.885(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<3>        |    5.386(F)|      SLOW  |   -0.713(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<4>        |    5.449(F)|      SLOW  |   -1.007(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<5>        |    5.472(F)|      SLOW  |   -1.102(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<6>        |    5.445(F)|      SLOW  |   -1.023(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+A<7>        |    5.438(F)|      SLOW  |   -1.010(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<0>        |    4.848(F)|      SLOW  |   -0.965(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<1>        |    5.254(F)|      SLOW  |   -1.254(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<2>        |    5.184(F)|      SLOW  |   -1.221(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<3>        |    5.303(F)|      SLOW  |   -1.259(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<4>        |    5.170(F)|      SLOW  |   -1.430(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<5>        |    5.715(F)|      SLOW  |   -1.377(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<6>        |    5.160(F)|      SLOW  |   -1.380(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+B<7>        |    5.509(F)|      SLOW  |   -1.515(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+------------+------------+------------+------------+------------+------------------+--------+
+
+Clock OP<0> to Pad
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+            |Max (slowest) clk|  Process   |Min (fastest) clk|  Process   |                  | Clock  |
+Destination |  (edge) to PAD  |   Corner   |  (edge) to PAD  |   Corner   |Internal Clock(s) | Phase  |
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+S<0>        |         6.360(F)|      SLOW  |         3.536(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<1>        |         6.360(F)|      SLOW  |         3.516(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<2>        |         6.360(F)|      SLOW  |         3.536(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<3>        |         6.360(F)|      SLOW  |         3.516(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<4>        |         6.165(F)|      SLOW  |         3.432(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<5>        |         6.294(F)|      SLOW  |         3.459(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<6>        |         6.165(F)|      SLOW  |         3.432(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<7>        |         6.294(F)|      SLOW  |         3.459(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+
+Clock OP<1> to Pad
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+            |Max (slowest) clk|  Process   |Min (fastest) clk|  Process   |                  | Clock  |
+Destination |  (edge) to PAD  |   Corner   |  (edge) to PAD  |   Corner   |Internal Clock(s) | Phase  |
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+S<0>        |         6.934(F)|      SLOW  |         3.867(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<1>        |         6.934(F)|      SLOW  |         3.847(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<2>        |         6.934(F)|      SLOW  |         3.867(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<3>        |         6.934(F)|      SLOW  |         3.847(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<4>        |         6.739(F)|      SLOW  |         3.763(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<5>        |         6.868(F)|      SLOW  |         3.790(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<6>        |         6.739(F)|      SLOW  |         3.763(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<7>        |         6.868(F)|      SLOW  |         3.790(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+
+Clock OP<2> to Pad
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+            |Max (slowest) clk|  Process   |Min (fastest) clk|  Process   |                  | Clock  |
+Destination |  (edge) to PAD  |   Corner   |  (edge) to PAD  |   Corner   |Internal Clock(s) | Phase  |
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+S<0>        |         6.158(F)|      SLOW  |         3.382(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<1>        |         6.158(F)|      SLOW  |         3.362(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<2>        |         6.158(F)|      SLOW  |         3.382(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<3>        |         6.158(F)|      SLOW  |         3.362(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<4>        |         5.963(F)|      SLOW  |         3.278(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<5>        |         6.092(F)|      SLOW  |         3.305(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<6>        |         5.963(F)|      SLOW  |         3.278(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<7>        |         6.092(F)|      SLOW  |         3.305(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+
+Clock OP<3> to Pad
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+            |Max (slowest) clk|  Process   |Min (fastest) clk|  Process   |                  | Clock  |
+Destination |  (edge) to PAD  |   Corner   |  (edge) to PAD  |   Corner   |Internal Clock(s) | Phase  |
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+S<0>        |         6.187(F)|      SLOW  |         3.403(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<1>        |         6.187(F)|      SLOW  |         3.383(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<2>        |         6.187(F)|      SLOW  |         3.403(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<3>        |         6.187(F)|      SLOW  |         3.383(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<4>        |         5.992(F)|      SLOW  |         3.299(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<5>        |         6.121(F)|      SLOW  |         3.326(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<6>        |         5.992(F)|      SLOW  |         3.299(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+S<7>        |         6.121(F)|      SLOW  |         3.326(F)|      FAST  |OP[3]_OP[3]_OR_7_o|   0.000|
+------------+-----------------+------------+-----------------+------------+------------------+--------+
+
+Clock to Setup on destination clock OP<0>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+OP<0>          |         |         |    1.347|    1.347|
+OP<1>          |         |         |    1.572|    1.572|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock OP<1>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+OP<0>          |         |         |    0.801|    0.801|
+OP<1>          |         |         |    1.026|    1.026|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock OP<2>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+OP<0>          |         |         |    1.539|    1.539|
+OP<1>          |         |         |    1.764|    1.764|
+---------------+---------+---------+---------+---------+
+
+Clock to Setup on destination clock OP<3>
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+OP<0>          |         |         |    1.511|    1.511|
+OP<1>          |         |         |    1.736|    1.736|
+---------------+---------+---------+---------+---------+
+
+Pad to Pad
+---------------+---------------+---------+
+Source Pad     |Destination Pad|  Delay  |
+---------------+---------------+---------+
+A<0>           |C              |    7.186|
+A<1>           |C              |    7.482|
+A<2>           |C              |    7.372|
+A<3>           |C              |    7.105|
+A<4>           |C              |    7.632|
+A<5>           |C              |    7.881|
+A<6>           |C              |    7.813|
+A<7>           |C              |    7.568|
+B<0>           |C              |    7.566|
+B<1>           |C              |    7.936|
+B<2>           |C              |    7.816|
+B<3>           |C              |    8.059|
+B<4>           |C              |    7.982|
+B<5>           |C              |    8.133|
+B<6>           |C              |    7.541|
+B<7>           |C              |    7.824|
+---------------+---------------+---------+
+
+
+Analysis completed Fri May 10 13:26:34 2019 
+--------------------------------------------------------------------------------
+
+Trace Settings:
+-------------------------
+Trace Settings 
+
+Peak Memory Usage: 387 MB
+
+
+

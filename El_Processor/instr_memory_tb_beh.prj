@@ -1,0 +1,3 @@
+vhdl work "common.vhd"
+vhdl work "instr_memory.vhd"
+vhdl work "instr_memory_tb.vhd"

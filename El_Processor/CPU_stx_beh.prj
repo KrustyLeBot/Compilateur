@@ -1,0 +1,8 @@
+vhdl isim_temp "common.vhd"
+vhdl isim_temp "Pipeline.vhd"
+vhdl isim_temp "MUX_banc_registres.vhd"
+vhdl isim_temp "MUX_ALU.vhd"
+vhdl isim_temp "instr_memory.vhd"
+vhdl isim_temp "Banc_registres.vhd"
+vhdl isim_temp "ALU.vhd"
+vhdl isim_temp "CPU.vhd"

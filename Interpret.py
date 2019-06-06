@@ -1,4 +1,4 @@
-register = [0,0,0,0,0]
+register = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 tab_memory = []
 for i in range(1000):
 	tab_memory.append(0)
@@ -9,7 +9,6 @@ liste_instr = []
 
 line = f.read(1)
 while (len(line)>0):
-	print(line)
 	liste_tmp = []
 
 	if (ord(line) == 1): #ADD
@@ -55,8 +54,12 @@ while (len(line)>0):
 
 	if(ord(line) == 14): #JMP
 		liste_tmp.append("JMP")
+	if(ord(line) == 21): #RET
+		liste_tmp.append("RET")
 	if(ord(line) == 15): #JMPC
 		liste_tmp.append("JMPC")
+	if(ord(line) == 255): #Fin de fichier
+		liste_tmp.append("END_FILE")
 
 	A = ord(f.read(1))
 	B = ord(f.read(1))
@@ -71,79 +74,70 @@ while (len(line)>0):
 
 
 f.close()
-
-print(liste_instr)
-
-
+k=0
 pointeur = 0
-
+addr=0
+addr_max = 0
 
 while (pointeur < len(liste_instr)):
-	if (liste_instr[pointeur][0] == "ADD"): #ADD
-		print("ADD")
+	#print(liste_instr[pointeur][0] + " " + str(liste_instr[pointeur][1]) + " " + str(liste_instr[pointeur][2]) + " " + str(liste_instr[pointeur][3]))
+
+	if(liste_instr[pointeur][0] == "ADD"): #ADD
 		R1 = liste_instr[pointeur][1]
 		R2 = liste_instr[pointeur][2]
 		register[R1] = register[R1] + register[R2]
 
-	if (liste_instr[pointeur][0] == "SOU"): #SOU
-		print("SOU")
+	elif(liste_instr[pointeur][0] == "SOU"): #SOU
 		R1 = liste_instr[pointeur][1]
 		R2 = liste_instr[pointeur][2]
 		register[R1] = register[R1] - register[R2]
 
-	if (liste_instr[pointeur][0] == "MUL"): #MUL
-		print("MUL")
+	elif(liste_instr[pointeur][0] == "MUL"): #MUL
 		R1 = liste_instr[pointeur][1]
 		R2 = liste_instr[pointeur][2]
 		register[R1] = register[R1] * register[R2]
 
-	if (liste_instr[pointeur][0] == "DIV"): #DIV
-		print("DIV")
+	elif(liste_instr[pointeur][0] == "DIV"): #DIV
 		R1 = liste_instr[pointeur][1]
 		R2 = liste_instr[pointeur][2]
 		register[R1] = register[R1] / register[R2]
 		
 
-	if (liste_instr[pointeur][0] == "AFC"): #AFC
-		print("AFC")
+	elif(liste_instr[pointeur][0] == "AFC"): #AFC
 		R1 = liste_instr[pointeur][1]
 		j = liste_instr[pointeur][2]
 		register[R1] = j
 
-	if (liste_instr[pointeur][0] == "LOAD"): #LOAD
-		print("LOAD")
+	elif(liste_instr[pointeur][0] == "LOAD"): #LOAD
 		R1 = liste_instr[pointeur][1]
 		addr2 = liste_instr[pointeur][2]
 		addr1 = liste_instr[pointeur][3] <<8
 		addr = addr1 + addr2
-
 		register[R1] = tab_memory[addr]
 
-	if (liste_instr[pointeur][0] == "STORE"): #STORE
-		print("STORE")
+	elif(liste_instr[pointeur][0] == "STORE"): #STORE
 		addr2 = liste_instr[pointeur][1]
 		R1 = liste_instr[pointeur][2]
 		addr1 = liste_instr[pointeur][3] <<8
 		addr = addr1 + addr2
 		tab_memory[addr] = register[R1]
 
-	if(liste_instr[pointeur][0] == "MOV"): #MOV COP
-		print("MOV")
+	elif(liste_instr[pointeur][0] == "MOV"): #MOV COP
 		R1 = liste_instr[pointeur][1]
 		R2 = liste_instr[pointeur][2]
 		register[R1] = register[R2]
 
-	if(liste_instr[pointeur][0] == "EQU"): #EQU
-		print("EQU")
+	elif(liste_instr[pointeur][0] == "EQU"): #EQU
 		R1 = liste_instr[pointeur][1]
 		R2 = liste_instr[pointeur][2]
+		print("R1: " + str(register[R1]))
+		print("R2: " + str(register[R2]))
 		if (register[R1] == register[R2]):
 			register[R1] = 1
 		else:
 			register[R1] = 0
 
-	if(liste_instr[pointeur][0] == "INF"): #INF
-		print("INF")
+	elif(liste_instr[pointeur][0] == "INF"): #INF
 		R1 = liste_instr[pointeur][1]
 		R2 = liste_instr[pointeur][2] 
 		if (register[R1] < register[R2]):
@@ -151,8 +145,7 @@ while (pointeur < len(liste_instr)):
 		else:
 			register[R1] = 0
 
-	if(liste_instr[pointeur][0] == "INFE"): #INFE
-		print("INFE")
+	elif(liste_instr[pointeur][0] == "INFE"): #INFE
 		R1 = liste_instr[pointeur][1]
 		R2 = liste_instr[pointeur][2] 
 		if (register[R1] <= register[R2]):
@@ -160,8 +153,7 @@ while (pointeur < len(liste_instr)):
 		else:
 			register[R1] = 0
 
-	if(liste_instr[pointeur][0] == "SUP"): #SUP
-		print("SUP")
+	elif(liste_instr[pointeur][0] == "SUP"): #SUP
 		R1 = liste_instr[pointeur][1]
 		R2 = liste_instr[pointeur][2] 
 		if (register[R1] > register[R2]):
@@ -169,8 +161,7 @@ while (pointeur < len(liste_instr)):
 		else:
 			register[R1] = 0
 
-	if(liste_instr[pointeur][0] == "SUPE"): #SUPE
-		print("SUPE")
+	elif(liste_instr[pointeur][0] == "SUPE"): #SUPE
 		R1 = liste_instr[pointeur][1]
 		R2 = liste_instr[pointeur][2] 
 		if (register[R1] >= register[R2]):
@@ -178,25 +169,29 @@ while (pointeur < len(liste_instr)):
 		else:
 			register[R1] = 0
 
-	if(liste_instr[pointeur][0] == "JMP"): #JMP
-		print("JMP")
+	elif(liste_instr[pointeur][0] == "JMP"): #JMP
 		addr2 = liste_instr[pointeur][1]
 		addr1 = liste_instr[pointeur][3] << 8
-		pointeur = addr1 + addr2 -1
-	if(liste_instr[pointeur][0] == "JMPC"): #JMPC
-		print("JMPC")
+		pointeur = addr1 + addr2-1
+
+	elif(liste_instr[pointeur][0] == "RET"): #RET
+		R1 = liste_instr[pointeur][1]
+		pointeur = register[R1] -1
+
+	elif(liste_instr[pointeur][0] == "JMPC"): #JMPC
 		addr2 = liste_instr[pointeur][1]
 		R1 = liste_instr[pointeur][2]
 		addr1 = liste_instr[pointeur][3] << 8
 		if (register[R1] == 0):
-			pointeur = addr1 + addr2 -1
+			pointeur = addr1 + addr2 - 1
 
+	if(liste_instr[pointeur][0] == "END_FILE"): #END OF FILE
+		break
 	pointeur += 1
+	if(addr>addr_max):
+		addr_max=addr;
 
-	print("a = " + str(tab_memory[400]))
-	print("b = " + str(tab_memory[404]))
+for z in range((addr_max/4)+1):
+	print("@"+str(4*z)+": " + str(tab_memory[z*4]))
 
-print("ok")
-print("a = " + str(tab_memory[400]))
-print("b = " + str(tab_memory[404]))
 
