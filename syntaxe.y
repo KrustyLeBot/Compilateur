@@ -827,7 +827,7 @@ int main() {
 			printf("***python Interpret.py pour l'interpreteur***\n");
 		}
 		else{
-			printf("Total of %d error during compilation\n",error_count);
+			printf("Total of %d error during compilation\n", error_count);
 		}
 	}
 	else
@@ -836,6 +836,3 @@ int main() {
 	}
 	return 1;
 }
-
-
-
